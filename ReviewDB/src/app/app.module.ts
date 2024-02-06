@@ -1,22 +1,23 @@
+// app.module.ts
 import { NgModule } from '@angular/core';
+import { AboutUsModule } from './main-pages/about-us/about-us.module';
+import { HeaderModule } from './main-fragments/header/header.module';
+import { FooterModule } from './main-fragments/footer/footer.module';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component'
-import { FooterComponent } from './footer/footer.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AboutUsModule,
+    HeaderModule,
+    FooterModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,0 +1,36 @@
+table {
+    width: 40%;
+	border: 5px #0f0f0f;
+	border-style: solid;
+	font-family: Arial;
+    margin: 10px;
+}
+th.feature1 {
+    text-align: right;
+    height: 50px;
+    background-color: #7a7a7a;
+    padding-right: 5px;
+    font-size: 22px;
+}
+th.feature2 {
+    text-align: left;
+    height: 50px;
+    background-color: #f1f1f1;
+    padding-left: 5px;
+    font-size: 22px;
+}
+td.feature1 {
+    text-align: right;
+    height: 35px;
+	border-style: dotted;
+    background-color: #9f9f9f;
+    padding-right: 5px;
+    font-size: 18px;
+}
+td.feature2 {
+    text-align: left;
+    height: 35px;
+	border-style: dotted;
+    padding-left: 5px;
+    font-size: 18px;
+}

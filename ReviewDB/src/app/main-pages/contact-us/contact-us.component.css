@@ -1,9 +1,19 @@
+.contact_info {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 table {
     width: 40%;
 	border: 5px #0f0f0f;
 	border-style: solid;
 	font-family: Arial;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 th.feature1 {
     text-align: right;

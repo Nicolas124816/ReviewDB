@@ -33,7 +33,6 @@ with open('movie_ids_' + get_date() + '.json.gz', 'wb') as f:
 
 
 # Unzip the file
-
 with gzip.open('movie_ids_' + get_date() + '.json.gz', 'rb') as f_in:
     with open('TMDB_Comments/movie_ids_' + get_date() + '.json', 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)

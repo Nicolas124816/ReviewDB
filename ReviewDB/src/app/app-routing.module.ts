@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutUsComponent } from './main-pages/about-us/about-us.component';
-import { ContactUsComponent } from './main-pages/contact-us/contact-us.component';
-import { ExampleSearchesComponent } from './main-pages/example-searches/example-searches.component';
-import { HomeComponent } from './main-pages/home/home.component';
-import { HowItWorksComponent } from './main-pages/how-it-works/how-it-works.component';
+import { AboutUsComponent } from './component/main-pages/about-us/about-us.component';
+import { ContactUsComponent } from './component/main-pages/contact-us/contact-us.component';
+import { ExampleSearchesComponent } from './component/main-pages/example-searches/example-searches.component';
+import { HomeComponent } from './component/main-pages/home/home.component';
+import { HowItWorksComponent } from './component/main-pages/how-it-works/how-it-works.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -1,0 +1,54 @@
+<div class="home">
+  <h1>Welcome to ReviewDB!</h1>
+  <p>ReviewDB is a way to find great movies by searching for similar reviews. By searching this way, the creators
+    hope to help users find new movies that they really connect to, and more closely match their expectations than 
+    a traditional search. Use the search bar below to find a movie for you or read on to learn more about what we 
+    have on our site.
+  </p>
+  <div class="content">
+    <!-- Need to add [formGroup]="homeForm" -->
+    <form (submit)="getMovieList()">
+      <div class="form-group">
+        <label for="descriptionInput">Movie Description</label>
+        <input 
+          type="string" 
+          formControlName="description" 
+          class="form-control" 
+          id="descriptionInput" 
+          aria-describedby="descriptionHelp" 
+          placeholder="Example Description: A funny animated dog movie with funny actors"
+        >
+        <small id="desciptionHelp" class="form-text text-muted">
+          This is used to generate recommended movies based off movie reviews.
+        </small>
+      </div>
+      <div class="form-check">
+        <input 
+          type="checkbox" 
+          formControlName="isKidMovie" 
+          class="form-check-input" 
+          id="isKidMovie"
+        >
+        <label class="form-check-label" for="isKidMovie">Kids Movies Only</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <!--- Horizontal list of movies and their elements -->
+  <!-- Reference: https://getbootstrap.com/docs/4.0/components/card/ -->
+  <div class="movie-list">
+    <div *ngFor="let movie of movieList" class="card" style="width: 18rem; margin-right: 10px;">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.movieTitle }}</h5>
+        <p class="card-text">{{ movie.movieSummary }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Year: {{ movie.movieYear }}</li>
+        <li class="list-group-item">Director: {{ movie.movieDirector }}</li>
+        <li class="list-group-item">For Children: {{ movie.forChildren ? 'Yes' : 'No' }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

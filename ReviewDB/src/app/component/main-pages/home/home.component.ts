@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../../service/movie.service';
 import { MovieDetails } from '../../../model/movie-details';
-import { FormBuilder, FormGroup  } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup  } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,10 @@ import { FormBuilder, FormGroup  } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   movieList: MovieDetails[] = [];
-  homeForm: FormGroup | undefined;
+  homeForm: FormGroup = new FormGroup({
+    description: new FormControl(''),
+    isKidMovie: new FormControl(false)
+  });
 
   constructor(private movieService: MovieService, private fb: FormBuilder) {}
 
@@ -19,10 +22,10 @@ export class HomeComponent implements OnInit {
   }
 
   initializeForm() {
-    // this.homeForm = this.fb.group({
-    //   description: [''],
-    //   isKidMovie: [false]
-    // });
+    this.homeForm = this.fb.group({
+      description: [''],
+      isKidMovie: [false]
+    });
   }
 
   getMovieList() {

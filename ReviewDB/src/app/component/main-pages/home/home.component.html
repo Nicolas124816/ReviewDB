@@ -6,8 +6,7 @@
     have on our site.
   </p>
   <div class="content">
-    <!-- Need to add [formGroup]="homeForm" -->
-    <form (submit)="getMovieList()">
+    <form [formGroup]="homeForm" (submit)="getMovieList()">
       <div class="form-group">
         <label for="descriptionInput">Movie Description</label>
         <input 

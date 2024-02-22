@@ -2,8 +2,4 @@
 
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-body {background-color: #e5e5e5;
-	margin: 25px 35px 25px 35px; 
-	border: 10px rgb(140, 140, 140);
-	padding: 25px 35px;
-	border-style: double;}
+@import "../node_modules/bootstrap/scss/bootstrap.scss";

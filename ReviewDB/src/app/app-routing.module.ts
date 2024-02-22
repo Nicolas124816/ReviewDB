@@ -5,6 +5,7 @@ import { ContactUsComponent } from './component/main-pages/contact-us/contact-us
 import { ExampleSearchesComponent } from './component/main-pages/example-searches/example-searches.component';
 import { HomeComponent } from './component/main-pages/home/home.component';
 import { HowItWorksComponent } from './component/main-pages/how-it-works/how-it-works.component';
+import { ProjectLinksComponent } from './component/main-pages/project-links/project-links.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'example-searches', component: ExampleSearchesComponent },
   { path: 'how-it-works', component: HowItWorksComponent },
+  { path: 'project-links', component: ProjectLinksComponent },
 ];
 
 @NgModule({

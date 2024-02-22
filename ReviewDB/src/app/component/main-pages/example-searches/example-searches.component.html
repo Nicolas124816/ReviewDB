@@ -1,3 +1,17 @@
 <div>
   <h1>This is the Example Searches page</h1>
+  <div class="movie-list">
+    <div *ngFor="let movie of movieList" class="card" style="width: 18rem; margin-right: 10px;">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.movieTitle }}</h5>
+        <p class="card-text">{{ movie.movieSummary }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Year: {{ movie.movieYear }}</li>
+        <li class="list-group-item">Director: {{ movie.movieDirector }}</li>
+        <li class="list-group-item">For Children: {{ movie.forChildren ? 'Yes' : 'No' }}</li>
+      </ul>
+    </div>
+  </div>
 </div>

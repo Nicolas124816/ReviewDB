@@ -4,6 +4,7 @@ export interface MovieDetails {
   movieYear: number;
   movieSummary: string;
   movieDirector: string;
+  matchScore: number;
   forChildren: boolean;
   actorList: Actor[];
 }

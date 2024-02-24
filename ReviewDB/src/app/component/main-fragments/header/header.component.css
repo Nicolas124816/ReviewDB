@@ -1,18 +1,20 @@
 /* Background color */
 .header-container {
   background-color: #333344;
+  height: 80px;
 }
 
 /* Title color */
 h1 {
   color: white;
+  padding-top: 15px;
 }
 
 /* Dropdown Button */
 .dropbtn, .btn {
   background-color: #333344;
   color: white;
-  padding: 16px;
+  padding: 28px;
   font-size: 16px;
   border: none;
 }
@@ -26,7 +28,7 @@ h1 {
   display: none;
   position: absolute;
   background-color: #333344;
-  min-width: 160px;
+  min-width: 200px;
   z-index: 1;
 }
 

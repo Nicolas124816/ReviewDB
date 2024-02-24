@@ -5,6 +5,19 @@
     margin-bottom: 20px;
 }
 
+.list {
+    list-style-type: none;
+    text-align: right;
+    margin-right: 30px;
+    font-size: 26px;
+    vertical-align: middle;
+}
+
+.media {
+    color:#0f0f0f;
+    text-decoration: none;
+}
+
 table {
     width: 40%;
 	border: 5px #0f0f0f;

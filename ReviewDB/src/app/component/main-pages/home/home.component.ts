@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../../service/movie.service';
 import { MovieDetails } from '../../../model/movie-details';
-import { FormBuilder, FormGroup  } from '@angular/forms';
+import { mockMovieList } from '../../../mock/movieListOutput';
+import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,10 @@ import { FormBuilder, FormGroup  } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   movieList: MovieDetails[] = [];
-  homeForm: FormGroup | undefined;
+  homeForm: FormGroup = new FormGroup({
+    description: new FormControl(''),
+    isKidMovie: new FormControl(false)
+  });
 
   constructor(private movieService: MovieService, private fb: FormBuilder) {}
 
@@ -19,22 +23,25 @@ export class HomeComponent implements OnInit {
   }
 
   initializeForm() {
-    // this.homeForm = this.fb.group({
-    //   description: [''],
-    //   isKidMovie: [false]
-    // });
+    this.homeForm = this.fb.group({
+      description: ['', Validators.required],
+      isKidMovie: [false]
+    });
   }
 
   getMovieList() {
-    const description = 'mock_description';
+    // this.movieService.getMovieListFromDescription(this.homeForm.value).subscribe({
+    //   next: (response) => {
+    //     this.movieList = response;
+    //   },
+    //   error: (error) => {
+    //     console.error('Error fetching movie list:', error);
+    //   },
+    // });
+    this.mockInformation();
+  }
 
-    this.movieService.getMovieListFromDescription(description).subscribe({
-      next: (response) => {
-        this.movieList = response;
-      },
-      error: (error) => {
-        console.error('Error fetching movie list:', error);
-      },
-    });
+  mockInformation() {
+    this.movieList = mockMovieList;
   }
 }

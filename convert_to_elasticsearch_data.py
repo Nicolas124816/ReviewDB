@@ -50,10 +50,9 @@ def convert_movie_reviews():
                     #print(review)
 
                     doc = dict()
-                    doc["_op_type"] = "index"
                     doc["_index"] = "movie_review"
-                    doc["title"] = content["movie_id"]
-                    doc["doc"] = content
+                    doc["movie_id"] = content["movie_id"]
+                    doc["comment"] = content["content"]
 
                     elasticsearch_data.append(doc)
 

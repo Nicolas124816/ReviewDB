@@ -17,16 +17,19 @@ es = Elasticsearch('https://localhost:9200', ca_certs="http_ca.crt", basic_auth=
 # res = es.search (index="newsgroup", body={"query": {"match": {"doc": "Phille"}}})
 # print(len(res["hits"]["hits"]))
 
-# res = es.search (index="newsgroup", body={"query": {"match": {"doc":{"query": "Phille", "fuzziness": "AUTO"}}}}, size =10000)
+# res = es.search (index="movie_review", body={"query": {"match": {"doc":{"query": "Phille", "fuzziness": "AUTO"}}}}, size =10000)
 # print(len(res["hits"]["hits"]))
 
-#res = es.search(index="movie_review", body={"query": {"match": {"doc": "OUTSTANDING"}}})
+res = es.search(index="movie_review", body={"query": {"match": {"comment": "worth"}}})
 
-res = es.search(index="movie_review", size=1000, body={"query": {"match_all": {}}})
+#res = es.search(index="movie_review", size=1000, body={"query": {"match_all": {}}})
 
 #print(res)
 #print(len(res))
 
 print(len(res["hits"]["hits"]))
 for doc in res["hits"]["hits"]:
-  print(doc)
+  result = doc["_source"]
+  print(result)
+  print(f"movie_id = {result['movie_id']}")
+  print(f"comment = {result['comment']}")

@@ -72,7 +72,7 @@ def prompt_script(json_str:str):
         movie_id_set.add(movie_id)
 
     # convert set to list
-    movie_id_list = list(movie_id_set)
+    movie_id_list = {"id_list": list(movie_id_set)}
 
     return dumps(movie_id_list)
 

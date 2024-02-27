@@ -1,0 +1,50 @@
+.card {
+    max-width: 50%;
+    margin-right: 10px;
+}
+.media {
+    color:#0f0f0f;
+    text-decoration: none;
+}
+.movie-list {
+    list-style-type: none;
+    text-align: right;
+    margin-right: 30px;
+    font-size: 26px;
+    vertical-align: middle;
+}
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+}
+.card-body{
+    color:#0f0f0f;
+    text-decoration: none;
+    font-size: 26px;
+}
+.card-title{
+    color:#0f0f0f;
+    text-decoration: none;
+    font-size: 26px;
+}
+.card-text{
+    color:#0f0f0f;
+    text-decoration: none;
+    font-size: 26px;
+}
+.list-group-item{
+    color:#0f0f0f;
+    background: #cce5ff;
+    margin: 5px;
+}
+.list-group{
+    background: #3399ff;
+    padding: 20px;
+}
+.list-group-flush{
+    background: #3399ff;
+    padding: 20px;
+}
+      

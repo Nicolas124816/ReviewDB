@@ -44,3 +44,19 @@ def prompt():
     response_data = prompt_script(request_json)
 
     return jsonify(response_data), 200
+
+@bp.post("/moviedata/")
+def movieData():
+    request_data = request.json
+    schema = MovieListSchema()
+    try:
+        result = schema.load(request_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    request_json = dumps(result)
+
+    response_data = movie_data_script(request_json)
+
+    return jsonify(response_data), 200
+

@@ -91,26 +91,31 @@ def movie_data_script(json_str:str):
             "accept": "application/json",
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxODgzNjM4MWRlN2NkMTg4ZDBlMjRlOThmNDg3NjE4ZCIsInN1YiI6IjY1Yjk2ZGJlMzNhMzc2MDE2Mjg2MzkxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UbB1p6YWO6oAxIHFuq79_u4DVFxYZmX3kO6dWsYN4iM"
         }
-        url = f"https://api.themoviedb.org/3/movie/{movie_id}"
-        r = requests.get(url, headers=headers)
-        data = loads(r.content)
-
+        url_movie = f"https://api.themoviedb.org/3/movie/{movie_id}"
+        url_crew = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?language=en-US"
+        url_review = f"https://api.themoviedb.org/3/movie/{movie_id}/reviews?language=en-US"
+        r_movie = requests.get(url_movie, headers=headers)
+        r_crew = requests.get(url_crew, headers=headers)
+        r_review = requests.get(url_review, headers=headers)
+        data_movie = loads(r_movie.content)
+        data_crew = loads(r_crew.content)
+        data_review = loads(r_review.content)
+        
         movie_data = {
-            "budget": data['budget'],
-            "director": 'TODO', # TODO fix director
-            "forAdults": data['adult'],
-            "genre": [genre['name'] for genre in data['genres']],
-            "overview": data['overview'],
-            "posterPath": data['poster_path'],
-            "releaseDate": data['release_date'],
-            "reviews": 'TODO', # TODO fix reviews
-            "runtime": data['runtime'],
+            "budget": data_movie['budget'],
+            "director": [p['name'] for p in data_crew['crew'] if p['job'] == 'Director'],
+            "forAdults": data_movie['adult'],
+            "genre": [genre['name'] for genre in data_movie['genres']],
+            "overview": data_movie['overview'],
+            "posterPath": data_movie['poster_path'],
+            "releaseDate": data_movie['release_date'],
+            "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
+            "runtime": data_movie['runtime'],
             "score": 'TODO', # TODO fix score, what is score???
-            "tagline": data['tagline'],
-            "title": data['title'],
-            "voteAverage": data['vote_average'],
-            "voteCount": data['vote_count'],
-            "year": 'TODO' # TODO year or release date???
+            "tagline": data_movie['tagline'],
+            "title": data_movie['title'],
+            "voteAverage": data_movie['vote_average'],
+            "voteCount": data_movie['vote_count']
         }
 
         result["movies"].append(movie_data)

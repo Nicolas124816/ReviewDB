@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MovieService {
-  private apiUrl = 'flask_url';
+  private apiUrl = 'http://127.0.0.1:8000/prompt/';
 
   constructor(private http: HttpClient) { }
 

@@ -3,6 +3,22 @@
     margin-right: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
+    
+    opacity: 0;
+    animation: fadeInAnimation 1s ease-in forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0; /* Start with opacity 0 */
+    }
+    to {
+        opacity: 1; /* Fade in to full opacity */
+    }
+}
+
+.list a:hover {
+    text-decoration: underline;
 }
 
 .list {
@@ -23,8 +39,8 @@ table {
 	border: 5px #0f0f0f;
 	border-style: solid;
 	font-family: Arial;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: 30px;
     margin-right: 30px;
 }

@@ -1,8 +1,21 @@
 .home {
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    position: absolute;
+    color: whitesmoke;
+}
+
+.backgroundImage {
+  background-image: url('../../../../../picture/testBackground.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Ensure the container takes up the full height of the viewport */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+>>>>>>> main
 }
 
 .content {
@@ -12,5 +25,11 @@
 }
 
 h1 {
+    text-align: center;
+    /* color: whitesmoke; */
+}
+
+p {
   text-align: center;
+  /* color: whitesmoke; */
 }

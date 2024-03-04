@@ -1,3 +1,4 @@
+import requests
 from flask import Blueprint, render_template, request, jsonify
 from json import dumps, loads
 from marshmallow import Schema, fields, ValidationError
@@ -42,5 +43,46 @@ def prompt():
     request_json = dumps(result)
 
     response_data = prompt_script(request_json)
+    
+
+    return jsonify(response_data), 200
+
+@bp.post("/moviedata/")
+def movieData():
+    request_data = request.json
+    schema = MovieListSchema()
+    try:
+        result = schema.load(request_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    request_json = dumps(result)
+
+    response_data = movie_data_script(request_json)
+
+    return jsonify(response_data), 200
+
+@bp.post("/prompt/test/")
+def promptTest():
+    request_data = request.json
+    schema_prompt = PromptSchema()
+    try:
+        result_prompt = schema_prompt.load(request_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    json_prompt = dumps(result_prompt)
+
+    response_prompt = prompt_script(json_prompt)
+
+    schema_data = MovieListSchema()
+    try:
+        result_data = schema_data.loads(response_prompt) # TODO test, if fails change loads to load
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    json_data = dumps(result_data)
+
+    response_data = movie_data_script(json_data)
 
     return jsonify(response_data), 200

@@ -3,13 +3,14 @@ import json
 from json import loads, load, dumps
 from marshmallow import Schema, fields
 from elasticsearch import Elasticsearch, helpers
+import random
 
 es = None
 
 class PromptSchema(Schema):
     prompt = fields.String(required=True)
-    filters = fields.Integer(required=True) #Bitmapping? allows for future expansion
-
+    adult = fields.Boolean(required=True) 
+    
 class AuthorizationSchema(Schema):
     user = fields.String(required=True)
     password = fields.String(required=True)
@@ -107,11 +108,11 @@ def movie_data_script(json_str:str):
             "forAdults": data_movie['adult'],
             "genre": [genre['name'] for genre in data_movie['genres']],
             "overview": data_movie['overview'],
-            "posterPath": data_movie['poster_path'],
+            "posterPath": "https://image.tmdb.org/t/p/w500/"+data_movie['poster_path'],
             "releaseDate": data_movie['release_date'],
             "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
             "runtime": data_movie['runtime'],
-            "score": 'TODO', # TODO fix score, what is score???
+            "score": random.randint(0, 100), # TODO fix score, what is score???
             "tagline": data_movie['tagline'],
             "title": data_movie['title'],
             "voteAverage": data_movie['vote_average'],

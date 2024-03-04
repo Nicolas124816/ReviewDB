@@ -41,6 +41,12 @@ export class HomeComponent implements OnInit {
     this.mockInformation();
   }
 
+  setReleaseYear() {
+    this.movieList.forEach(movie => {
+      movie.releaseYear = movie.releaseDate.split('-')[0];
+    });
+  }
+
   mockInformation() {
     this.movieList = mockMovieList;
   }

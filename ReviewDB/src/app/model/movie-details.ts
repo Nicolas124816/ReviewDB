@@ -1,15 +1,23 @@
 // MovieDetails is a data object that describes one movie.
 export interface MovieDetails {
-  movieTitle: string;
-  movieYear: number;
-  movieSummary: string;
-  movieDirector: string;
-  matchScore: number;
-  forChildren: boolean;
-  actorList: Actor[];
+  budget: number;
+  director: string;
+  forAdults: boolean;
+  genre: string[];
+  overview: string;
+  posterPath: string;
+  releaseDate: string;
+  releaseYear: string;
+  reviews: string[];
+  runtime: number;
+  score: number;
+  tagline: string;
+  title: string;
+  voteAverage: number;
+  voteCount: number;
 }
 
 // Actor is a data object that describes one actor.
 export interface Actor {
-    name: string;
+  name: string;
 }

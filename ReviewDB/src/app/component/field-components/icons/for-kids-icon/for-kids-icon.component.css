@@ -1,0 +1,15 @@
+.icon-with-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.icon-with-text-container svg {
+  margin-bottom: 5px;
+}
+
+p {
+  font-size: 10px;
+}

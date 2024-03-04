@@ -9,7 +9,7 @@ export const mockMovieList = [
             'Comedy',
         ],
         overview: 'A love movie about superheros',
-        posterPath: '/f2t4JbUvQIjUF5FstG1zZFAp02N.jpg',
+        posterPath: 'https://www.themoviedb.org/t/p/w500/1uoU4qPZEcOus0rQf8Tz4JCn3cX.jpg',
         releaseDate: '2012-10-5',
         releaseYear: '2012',
         reviews: [
@@ -19,7 +19,7 @@ export const mockMovieList = [
         runtime: 100,
         score: 96,
         tagline: 'Superheros save New York',
-        title: 'Avengers',
+        title: 'Infinity War',
         voteAverage: 4.7,
         voteCount: 27
     },
@@ -32,7 +32,7 @@ export const mockMovieList = [
             'Comedy',
         ],
         overview: 'A love movie about superheros',
-        posterPath: '/f2t4JbUvQIjUF5FstG1zZFAp02N.jpg',
+        posterPath: 'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
         releaseDate: '2013-10-5',
         releaseYear: '2013',
         reviews: [

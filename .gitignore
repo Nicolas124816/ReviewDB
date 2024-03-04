@@ -2,3 +2,4 @@
 .DS_Store
 http_ca.crt
 secrets.json
+/board\__pycache__

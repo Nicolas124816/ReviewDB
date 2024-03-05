@@ -87,8 +87,8 @@ def promptTest():
     json_data = dumps(result_data)
 
     response_data = movie_data_script(json_data)
-    response_data.headers.add("Access-Control-Allow-Origin", "http://localhost:4200")
-    response_data.headers.add("Access-Control-Allow-Headers", "Content-Type")
-    response_data.headers.add("Access-Control-Allow-Methods", "POST")
+    #response_data.headers.add("Access-Control-Allow-Origin", "http://localhost:4200")
+    #response_data.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    #response_data.headers.add("Access-Control-Allow-Methods", "POST")
 
     return jsonify(response_data), 200

@@ -1,3 +1,4 @@
+from flask_cors import cross_origin
 import requests
 from flask import Blueprint, render_template, request, jsonify
 from json import dumps, loads
@@ -63,7 +64,9 @@ def movieData():
     return jsonify(response_data), 200
 
 @bp.post("/prompt/test/")
+@cross_origin()
 def promptTest():
+    print("Entered API")
     request_data = request.json
     schema_prompt = PromptSchema()
     try:
@@ -84,5 +87,8 @@ def promptTest():
     json_data = dumps(result_data)
 
     response_data = movie_data_script(json_data)
+    response_data.headers.add("Access-Control-Allow-Origin", "http://localhost:4200")
+    response_data.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response_data.headers.add("Access-Control-Allow-Methods", "POST")
 
     return jsonify(response_data), 200

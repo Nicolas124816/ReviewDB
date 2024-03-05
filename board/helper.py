@@ -47,6 +47,7 @@ def initialize_elasticsearch_connection():
 def update_script():
     
     # Add Update code here
+    print("Entered update")
     
     return {"Update": "True"}
 
@@ -63,7 +64,7 @@ def prompt_script(json_str:str):
     #if es is None:
     es = initialize_elasticsearch_connection()
 
-    res = es.search(index="movie_review", size=20, body={"query": {"match": {"comment": prompt}}})
+    res = es.search(index="movie_review", size=8, body={"query": {"match": {"comment": prompt}}})
 
     print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
@@ -71,6 +72,7 @@ def prompt_script(json_str:str):
         movie_id = result["movie_id"]
 
         movie_id_set.add(movie_id)
+        
 
     # convert set to list
     movie_id_list = {"id_list": list(movie_id_set)}
@@ -80,6 +82,7 @@ def prompt_script(json_str:str):
 
 def movie_data_script(json_str:str):
     """ Your Function that Requires JSON string"""
+    print("Entered movie_data_script")
 
     a_dict = loads(json_str)
 
@@ -90,7 +93,7 @@ def movie_data_script(json_str:str):
         
         headers = {
             "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxODgzNjM4MWRlN2NkMTg4ZDBlMjRlOThmNDg3NjE4ZCIsInN1YiI6IjY1Yjk2ZGJlMzNhMzc2MDE2Mjg2MzkxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UbB1p6YWO6oAxIHFuq79_u4DVFxYZmX3kO6dWsYN4iM"
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxODgzNjM4MWRlN2NkMTg4ZDBlMjRlOThmNDg3NjE4ZCIsInN1YiI6IjY1Yjk2ZGJlMzNhMzc2MDE2Mjg2MzkxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UbB1p6YWO6oAxIHFuq79_u4DVFxYZmX3kO6dWsYN4iM",
         }
         url_movie = f"https://api.themoviedb.org/3/movie/{movie_id}"
         url_crew = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?language=en-US"

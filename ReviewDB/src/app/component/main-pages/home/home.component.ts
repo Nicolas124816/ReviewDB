@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   movieList: MovieDetails[] = [];
   homeForm: FormGroup = new FormGroup({
     description: new FormControl(''),
-    isKidMovie: new FormControl(false)
+    isKidsMovie: new FormControl(false)
   });
 
   constructor(private movieService: MovieService, private fb: FormBuilder) {}
@@ -25,19 +25,24 @@ export class HomeComponent implements OnInit {
   initializeForm() {
     this.homeForm = this.fb.group({
       description: ['', Validators.required],
-      isKidMovie: [false]
+      isKidsMovie: [false]
     });
   }
 
   getMovieList() {
-    // this.movieService.getMovieListFromDescription(this.homeForm.value).subscribe({
-    //   next: (response) => {
-    //     this.movieList = response;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error fetching movie list:', error);
-    //   },
-    // });
+    let prompt = this.homeForm.get('description')?.value;
+    let adult = this.homeForm.get('isKidsMovie')?.value;
+
+    this.movieService.getMovieListFromDescription(prompt, adult).subscribe({
+      next: (response) => {
+        console.log('Success');
+        console.log(response);
+        // this.movieList = response;
+      },
+      error: (error) => {
+        console.error('Error fetching movie list:', error);
+      },
+    });
     this.mockInformation();
   }
 

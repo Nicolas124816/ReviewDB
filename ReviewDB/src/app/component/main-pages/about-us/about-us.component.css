@@ -23,6 +23,60 @@
 }
 
 .card {
-    max-width: 50%;
+    max-width: 100%;
     margin-right: 10px;
+}
+
+.image-container-Kevyn {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../../../picture/Kevyn.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.image-container-Kush {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../../../picture/Kush.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.image-container-Nick {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../../../picture/Nick.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.image-container-Zhao {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../../../picture/Zhao.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.image-container-Lang {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../../../picture/Lang.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-position: center;
+}
+
+.image-container-Ardon {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../../../picture/Ardon.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

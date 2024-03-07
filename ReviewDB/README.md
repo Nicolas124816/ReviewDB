@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Flask Setup
 
-Run "python -m flask --app board run --port 8000 --debug" (linux) or "python -m flask --app board run --port 8000 --debug" (windows)
+Run "python3 -m flask --app board run --port 8000 --debug" (linux) or "python -m flask --app board run --port 8000 --debug" (windows)

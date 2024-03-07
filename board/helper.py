@@ -58,13 +58,12 @@ def prompt_script(json_str:str):
     movie_id_set = set()
 
     a_dict = loads(json_str)
-
     prompt = a_dict["prompt"]
 
     #if es is None:
     es = initialize_elasticsearch_connection()
 
-    res = es.search(index="movie_review", size=8, body={"query": {"match": {"comment": prompt}}})
+    res = es.search(index="movie_review", size=8, body={"query": {"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}})
 
     print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
@@ -73,7 +72,6 @@ def prompt_script(json_str:str):
 
         movie_id_set.add(movie_id)
         
-
     # convert set to list
     movie_id_list = {"id_list": list(movie_id_set)}
 

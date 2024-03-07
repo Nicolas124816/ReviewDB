@@ -1,32 +1,33 @@
 <div class="backgroundImage">
-
   <div class="home">
-    <h1>Welcome to ReviewDB!</h1>
-    <p>ReviewDB is a way to find great movies by searching for similar reviews. By searching this way, the creators
-      hope to help users find new movies that they really connect to, and more closely match their expectations than 
-      a traditional search. Use the search bar below to find a movie for you or read on to learn more about what we 
-      have on our site.
-    </p>
+    <div class="bottom-margin">
+      <h1>Welcome to ReviewDB!</h1>
+      <p>ReviewDB is a way to find great movies by searching for similar reviews. By searching this way, the creators
+        hope to help users find new movies that they really connect to, and more closely match their expectations than 
+        a traditional search. Use the search bar below to find a movie for you or read on to learn more about what we 
+        have on our site.
+      </p>
+    </div>
     <div class="content">
       <form [formGroup]="homeForm" (submit)="getMovieList()" class="d-flex flex-column align-items-center">
-        <div class="form-group">
+        <div class="form-group bottom-margin">
           <label for="descriptionInput">Movie Description</label>
           <input 
             type="string" 
             formControlName="description" 
-            class="form-control" 
+            class="form-control description-input" 
             id="descriptionInput" 
             aria-describedby="descriptionHelp" 
             placeholder="Example Description: A funny animated dog movie with funny actors"
           >
-          <small id="desciptionHelp" class="form-text text-muted">
+          <small id="descriptionHelp" class="form-text text-muted bottom-margin" style="color: whiteSmoke !important;">
             This is used to generate recommended movies based off movie reviews.
           </small>
         </div>
-        <div class="form-check">
+        <div class="form-check bottom-margin">
           <input 
             type="checkbox" 
-            formControlName="isKidMovie" 
+            formControlName="isKidsMovie" 
             class="form-check-input" 
             id="isKidMovie"
           >

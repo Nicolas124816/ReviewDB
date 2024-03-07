@@ -35,15 +35,37 @@ export class HomeComponent implements OnInit {
 
     this.movieService.getMovieListFromDescription(prompt, adult).subscribe({
       next: (response) => {
-        console.log('Success');
-        console.log(response);
-        // this.movieList = response;
+        if (response.body === undefined) {
+          return;
+        }
+        const movieData = JSON.parse(response.body)
+        console.log(movieData.movies);
+
+        this.movieList = movieData.movies.map((movie: any) => {
+          return {
+            budget: movie.budget,
+            director: movie.director[0],
+            forAdults: movie.forAdults,
+            genre: movie.genre[0],
+            overview: movie.overview,
+            posterPath: movie.posterPath,
+            releaseDate: movie.releaseDate,
+            releaseYear: movie.releaseDate.substring(0, 4),
+            reviews: movie.reviews.map((review: any) => review.content),
+            runtime: movie.runtime,
+            score: movie.score,
+            tagline: movie.tagline,
+            title: movie.title,
+            voteAverage: movie.voteAverage,
+            voteCount: movie.voteCount,
+          };
+        });
       },
       error: (error) => {
         console.error('Error fetching movie list:', error);
       },
     });
-    this.mockInformation();
+    // this.mockInformation();
   }
 
   setReleaseYear() {

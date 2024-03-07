@@ -16,8 +16,3 @@ export interface MovieDetails {
   voteAverage: number;
   voteCount: number;
 }
-
-// Actor is a data object that describes one actor.
-export interface Actor {
-  name: string;
-}

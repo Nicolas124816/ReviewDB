@@ -18,7 +18,7 @@ export class MovieService {
     const requestData = { prompt, adult };
     let req = new HttpRequest<any>(
       'POST',
-      this.apiUrlBase + `/prompt/test`,
+      this.apiUrlBase + `/prompt/test/`,
       requestData,
       {
         headers: headers,

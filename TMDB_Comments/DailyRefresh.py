@@ -85,15 +85,16 @@ for id in ids_to_add:
 
             if id in movie_ids:
                 movie_line = movie_ids.index(id)
+                # Only write to the file if the reviews are different
                 if lines[movie_line] != json.dumps({"movie_id": id, "comments:": reviews}) + '\n':
                     with open(filename, 'w', encoding="utf8") as f:
                         print(lines[movie_line])
-                        # Check if the movies reviews are the same as the new reviews and if not, replace that line with the new reviews
                         lines[movie_line] = json.dumps({"movie_id": id, "comments:": reviews}) + '\n'
                         f.writelines(lines)
 
             else:
                 with open(filename, 'a', encoding="utf8") as f:
+                    print("New movie: " + str(id))
                     f.write(json.dumps({"movie_id": id, "comments:": reviews}) + '\n')
                     f.close()          
 

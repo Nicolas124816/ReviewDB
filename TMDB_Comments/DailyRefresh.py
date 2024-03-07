@@ -41,8 +41,20 @@ if len(ids_to_add) == 0:
 
 print("Adding " + str(len(ids_to_add)) + " new movies")
 
+# Get all the movie ids currently in the review database
+movie_ids = []
 
-exit()
+filename = 'TMDB_Comments/ReviewDatabaseTesting.json'
+
+with open(filename, 'r', encoding="utf8") as f:
+        for line in f:
+            data = json.loads(line)
+            movie_ids.append(data['movie_id'])
+
+with open(filename, 'r', encoding="utf8") as f:
+                    lines = f.readlines()
+                    f.close()
+
 # get the comments for each movie id and write them to the database
 counter = 0
 for id in ids_to_add:
@@ -68,10 +80,23 @@ for id in ids_to_add:
             reviews = []
             for review in response.json()['results']:
                 reviews.append({str(review['author']): review['content']})
+            
+            # write the reviews to the database, if it already exists, append to it
 
-            with open('TMDB_Comments/ReviewDatabase.json', 'a') as f:
-                f.write(json.dumps({"movie_id": id, "comments:": reviews}) + '\n')
-                f.close()
+            if id in movie_ids:
+                movie_line = movie_ids.index(id)
+                if lines[movie_line] != json.dumps({"movie_id": id, "comments:": reviews}) + '\n':
+                    with open(filename, 'w', encoding="utf8") as f:
+                        print(lines[movie_line])
+                        # Check if the movies reviews are the same as the new reviews and if not, replace that line with the new reviews
+                        lines[movie_line] = json.dumps({"movie_id": id, "comments:": reviews}) + '\n'
+                        f.writelines(lines)
+
+            else:
+                with open(filename, 'a', encoding="utf8") as f:
+                    f.write(json.dumps({"movie_id": id, "comments:": reviews}) + '\n')
+                    f.close()          
+
     counter += 1
     print(counter)
     time.sleep(0.02)

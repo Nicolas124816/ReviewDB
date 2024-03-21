@@ -5,6 +5,7 @@ from json import dumps, loads
 from marshmallow import Schema, fields, ValidationError
 from board.helper import *
 
+
 bp = Blueprint("pages", __name__)
 
 @bp.get("/")
@@ -63,10 +64,13 @@ def movieData():
 
     return jsonify(response_data), 200
 
+
 @bp.post("/prompt/test/")
 @cross_origin()
 def promptTest():
     print("Entered API")
+    skip_list = []
+
     request_data = request.json
     schema_prompt = PromptSchema()
     try:
@@ -76,7 +80,61 @@ def promptTest():
     
     json_prompt = dumps(result_prompt)
 
-    response_prompt = prompt_script(json_prompt)
+    if result_prompt["adult"]:
+        kids_movies = []
+        print("Kids Movies")
+        while len(kids_movies) < 8:
+            temp_response_data, _ = final_script(json_prompt, skip_list)
+            temp_movies = loads(temp_response_data)
+            kids_movies += [m for m in temp_movies["movies"]]
+            skip_list += [m for m in temp_movies["movies"] if m["forAdults"]]
+        print(skip_list)
+        response_data = dumps({"movies": kids_movies})
+        code = 200
+    else:
+        response_data, code = final_script(json_prompt, skip_list)
+
+    #print(response_data)
+    response = jsonify(response_data)
+
+    return response, code
+
+
+def final_script(json_prompt, skip_list):
+    response_prompt = prompt_script(json_prompt, skip_list)
+
+    schema_data = MovieListSchema()
+    try:
+        result_data = schema_data.loads(response_prompt) # TODO test, if fails change loads to load
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    json_data = dumps(result_data)
+
+    response_data = movie_data_script(json_data)
+    #response = jsonify(response_data)
+
+    return response_data, 200
+
+'''
+@bp.post("/prompt/test/")
+@cross_origin()
+def promptTest():
+    print("Entered API")
+    skip_list = []
+
+    request_data = request.json
+    schema_prompt = PromptSchema()
+    try:
+        result_prompt = schema_prompt.load(request_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    json_prompt = dumps(result_prompt)
+
+    if result_prompt["adult"]:
+
+    response_prompt = prompt_script(json_prompt, skip_list)
 
     schema_data = MovieListSchema()
     try:
@@ -90,3 +148,4 @@ def promptTest():
     response = jsonify(response_data)
 
     return response, 200
+'''

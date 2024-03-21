@@ -44,7 +44,7 @@ print("Adding " + str(len(ids_to_add)) + " new movies")
 # Get all the movie ids currently in the review database
 movie_ids = []
 
-filename = 'TMDB_Comments/ReviewDatabaseTesting.json'
+filename = 'TMDB_Comments/ReviewDatabase.json'
 
 with open(filename, 'r', encoding="utf8") as f:
         for line in f:
@@ -100,4 +100,4 @@ for id in ids_to_add:
 
     counter += 1
     print(counter)
-    time.sleep(0.02)
+    time.sleep(0.01)

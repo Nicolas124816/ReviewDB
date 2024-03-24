@@ -21,6 +21,7 @@ export const mockMovieList = [
         tagline: 'Superheros save New York',
         title: 'Infinity War',
         voteAverage: 4.7,
+        voteAverageRounded: 4.7,
         voteCount: 27
     },
     {
@@ -44,6 +45,7 @@ export const mockMovieList = [
         tagline: 'Superheros save New York',
         title: 'Endgame',
         voteAverage: 4.7,
+        voteAverageRounded: 4.7,
         voteCount: 27,
     },
     {
@@ -67,6 +69,7 @@ export const mockMovieList = [
         tagline: 'Superheros save New York',
         title: 'Endgame',
         voteAverage: 4.7,
+        voteAverageRounded: 4.7,
         voteCount: 27,
     },
     {
@@ -90,6 +93,7 @@ export const mockMovieList = [
         tagline: 'Superheros save New York',
         title: 'Endgame',
         voteAverage: 4.7,
+        voteAverageRounded: 4.7,
         voteCount: 27,
     },
     {
@@ -113,6 +117,7 @@ export const mockMovieList = [
         tagline: 'Superheros save New York',
         title: 'Endgame',
         voteAverage: 4.7,
+        voteAverageRounded: 4.7,
         voteCount: 27,
     },
 ];

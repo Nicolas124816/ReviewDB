@@ -1,2 +1,40 @@
-<!-- This houses all information about a movie. It takes in the movieList[element] as its only input -->
-<h1>Movie Information Popup</h1>
+<div class="popup" style="background-color: #444; color: white;">
+    <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="closePopup()"></button>
+    <h1>{{ movie?.title }}</h1>
+    <p>{{ movie?.releaseYear }} &middot; {{ movie?.runtime }}m &middot; {{ movie?.genre }}</p>
+    <div class="content">
+        <img class="card-img-top" [src]="movie?.posterPath" alt="Movie Poster" style="width: 30%; height: 30%; margin-right: 20px">
+        <div class="details-container">
+            <div *ngIf="movie?.overview">
+                <p>{{ movie?.overview }}</p>
+                <hr>
+            </div>
+            <div *ngIf="movie?.director">
+                <p>Director: {{ movie?.director }}</p>
+                <hr>
+            </div>
+            <div *ngIf="movie?.tagline">
+                <p>Tagline: {{ movie?.tagline }}</p>
+                <hr>
+            </div>
+            <div *ngIf="movie?.budget">
+                <p>Budget: ${{ movie?.budget | number:'1.0-0' }}</p>
+                <hr>
+            </div>
+            <div *ngIf="movie?.voteAverageRounded && movie?.voteCount">
+                <div style="margin-bottom: -10px">
+                    <app-star-icon></app-star-icon>
+                    <p style="display: inline-block; margin-left: 5px;">{{ movie?.voteAverageRounded }}/10 for {{ movie?.voteCount }} reviews</p>
+                </div>
+                <hr>
+            </div>
+            <p>Reviews: {{ firstMovieReview }}...</p>
+            <button *ngIf="allReviews.length == 0" class="btn btn-primary" (click)="showAllReviews()">Show More</button>
+            <button *ngIf="allReviews.length > 0" class="btn btn-primary" (click)="showLessReviews()">Show Less</button>
+        </div>
+    </div>
+    <p *ngIf="allReviews.length > 0" style="margin-top: 10px">All Reviews:</p>
+    <ul>
+        <li *ngFor="let review of allReviews">{{ review }}</li>
+    </ul>
+</div>

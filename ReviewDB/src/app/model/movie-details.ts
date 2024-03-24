@@ -14,5 +14,6 @@ export interface MovieDetails {
   tagline: string;
   title: string;
   voteAverage: number;
+  voteAverageRounded: number;
   voteCount: number;
 }

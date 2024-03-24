@@ -37,19 +37,24 @@
       </form>
     </div>
 
-  <div class="container">
-    <div class="row">
-      <div *ngFor="let movie of movieList" class="col-md-3 mb-4">
-        <div class="card">
-          <img class="card-img-top" src={{movie.posterPath}} alt="Movie Poster">
-          <div class="card-body">
-            <div class="d-flex align-items-center" style="margin-bottom: 5px">
-              <div *ngIf="movie.forAdults" style="margin-bottom: -40px">
-                <app-for-kids-icon></app-for-kids-icon>
+    <div class="container">
+      <div class="row">
+        <div *ngFor="let movie of movieList" class="col-md-3 mb-4" (click)="showMoviePopup(movie)">
+          <div class="card">
+            <img class="card-img-top" [src]="movie.posterPath" alt="Movie Poster">
+            <div class="card-body">
+              <div class="d-flex align-items-center" style="margin-bottom: 5px">
+                <div *ngIf="movie.forAdults" style="margin-bottom: -40px">
+                  <app-for-kids-icon></app-for-kids-icon>
+                </div>
+                <app-movie-score-field [score]="movie.score"></app-movie-score-field>
+                <div style="margin-left: 10px; margin-bottom: -40px;">
+                  <app-star-icon></app-star-icon>
+                  <p style="display: inline-block; margin-left: 5px;">{{ movie.voteAverageRounded }}/10</p>
+                </div>
               </div>
-              <app-movie-score-field [score]="movie.score"></app-movie-score-field>
+              <h5 class="card-title">{{ movie.title }} ({{ movie.releaseYear }})</h5>
             </div>
-            <h5 class="card-title">{{ movie.title }} ({{ movie.releaseYear }})</h5>
           </div>
         </div>
       </div>
@@ -57,4 +62,4 @@
   </div>
 </div>
 
-</div>
+<app-movie-information-popup *ngIf="selectedMovie" [movie]="selectedMovie" (close)="closePopup()"></app-movie-information-popup>

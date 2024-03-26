@@ -38,3 +38,11 @@ p {
   text-align: center;
   /* color: whitesmoke; */
 }
+
+.movie-card {
+  transition: box-shadow 0.3s;
+}
+
+.movie-card:hover {
+  box-shadow: 0 0 50px rgb(200, 230, 10);
+}

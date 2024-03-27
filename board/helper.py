@@ -16,7 +16,8 @@ class AuthorizationSchema(Schema):
     password = fields.String(required=True)
 
 class MovieListSchema(Schema):
-    id_list = fields.List(fields.Integer(), required=True)
+    #id_list = fields.List(fields.Integer(), required=True)
+    id_list = fields.Dict(fields.String(required=True), fields.Float(required=True), required=True)
 
 def authorization_check(json_str:str):
     """ Your Function that Requires JSON string"""
@@ -55,7 +56,7 @@ def update_script():
 def prompt_script(json_str:str):
     """ Your Function that Requires JSON string"""
 
-    movie_id_set = set()
+    movie_id_map = dict()
 
     a_dict = loads(json_str)
     prompt = a_dict["prompt"]
@@ -67,13 +68,15 @@ def prompt_script(json_str:str):
 
     print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
+        score = doc["_score"]
         result = doc["_source"]
         movie_id = result["movie_id"]
 
-        movie_id_set.add(movie_id)
+        #movie_id_set.add(movie_id)
+        movie_id_map[movie_id] = score
         
     # convert set to list
-    movie_id_list = {"id_list": list(movie_id_set)}
+    movie_id_list = {"id_list": movie_id_map}
 
     return dumps(movie_id_list)
 
@@ -88,7 +91,7 @@ def movie_data_script(json_str:str):
 
     movie_list = a_dict["id_list"]
     for movie_id in movie_list:
-        
+
         headers = {
             "accept": "application/json",
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxODgzNjM4MWRlN2NkMTg4ZDBlMjRlOThmNDg3NjE4ZCIsInN1YiI6IjY1Yjk2ZGJlMzNhMzc2MDE2Mjg2MzkxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UbB1p6YWO6oAxIHFuq79_u4DVFxYZmX3kO6dWsYN4iM",
@@ -114,7 +117,7 @@ def movie_data_script(json_str:str):
                 "releaseDate": data_movie['release_date'],
                 "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
                 "runtime": data_movie['runtime'],
-                "score": random.randint(0, 100), # TODO fix score, what is score???
+                "score": "{:.1f}".format(movie_list[movie_id]), # TODO fix score, what is score???
                 "tagline": data_movie['tagline'],
                 "title": data_movie['title'],
                 "voteAverage": data_movie['vote_average'],

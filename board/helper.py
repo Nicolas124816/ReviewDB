@@ -71,7 +71,7 @@ def prompt_script(json_str:str, skip_list):
         }}}
     )
 
-    print(len(res["hits"]["hits"]))
+    #print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
         result = doc["_source"]
         movie_id = result["movie_id"]
@@ -86,7 +86,7 @@ def prompt_script(json_str:str, skip_list):
 
 def movie_data_script(json_str:str): 
     """ Your Function that Requires JSON string"""
-    print("Entered movie_data_script")
+    #print("Entered movie_data_script")
 
     a_dict = loads(json_str)
 

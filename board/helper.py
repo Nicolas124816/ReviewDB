@@ -113,7 +113,7 @@ def movie_data_script(json_str:str):
             movie_data = {
                 "budget": data_movie['budget'],
                 "director": [p['name'] for p in data_crew['crew'] if p['job'] == 'Director'],
-                "forAdults": data_movie['adult'],
+                "forAdults": not bool([m for m in data_movie['genres'] if "Family"==m["name"]]),
                 "genre": [genre['name'] for genre in data_movie['genres']],
                 "overview": data_movie['overview'],
                 "posterPath": "https://image.tmdb.org/t/p/w500/"+data_movie['poster_path'],

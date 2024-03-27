@@ -87,10 +87,15 @@ def promptTest():
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
+            #kids_movies += [m for m in temp_movies["movies"] if not m["forAdults"]]
+            
             for m in temp_movies["movies"]:
-                if "Family" in m["genre"]: 
-                    #print(m["title"])
+                if len(kids_movies) >= 8:
+                    break
+                if not m["forAdults"]: 
+                    print(m["forAdults"])
                     kids_movies.append(m)
+            
             skip_list += temp_id["id_list"]
         #print(skip_list)
         response_data = dumps({"movies": kids_movies})

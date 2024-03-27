@@ -53,7 +53,7 @@ def update_script():
     return {"Update": "True"}
 
 
-def prompt_script(json_str:str):
+def prompt_script(json_str:str, skip_list):
     """ Your Function that Requires JSON string"""
 
     movie_id_map = dict()
@@ -64,7 +64,13 @@ def prompt_script(json_str:str):
     #if es is None:
     es = initialize_elasticsearch_connection()
 
-    res = es.search(index="movie_review", size=8, body={"query": {"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}})
+    res = es.search(
+        index="movie_review", size=8, 
+        body={"query": {"bool":{
+            "must":{"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}, 
+            "must_not": {"terms": {"movie_id" : skip_list}}
+        }}}
+    )
 
     print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
@@ -81,7 +87,7 @@ def prompt_script(json_str:str):
     return dumps(movie_id_list)
 
 
-def movie_data_script(json_str:str):
+def movie_data_script(json_str:str): 
     """ Your Function that Requires JSON string"""
     print("Entered movie_data_script")
 
@@ -117,7 +123,7 @@ def movie_data_script(json_str:str):
             movie_data = {
                 "budget": data_movie['budget'],
                 "director": [p['name'] for p in data_crew['crew'] if p['job'] == 'Director'],
-                "forAdults": data_movie['adult'],
+                "forAdults": not bool([m for m in data_movie['genres'] if "Family"==m["name"]]),
                 "genre": [genre['name'] for genre in data_movie['genres']],
                 "overview": data_movie['overview'],
                 "posterPath": "https://image.tmdb.org/t/p/w500/"+data_movie['poster_path'],

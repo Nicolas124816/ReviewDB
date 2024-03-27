@@ -90,6 +90,13 @@ def movie_data_script(json_str:str):
     result = {"movies": []}
 
     movie_list = a_dict["id_list"]
+
+    # Calculate the total value of score.
+    total_score = 0
+    for movie_id in movie_list:
+        score = movie_list[movie_id]
+        total_score += score
+
     for movie_id in movie_list:
 
         headers = {
@@ -117,7 +124,7 @@ def movie_data_script(json_str:str):
                 "releaseDate": data_movie['release_date'],
                 "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
                 "runtime": data_movie['runtime'],
-                "score": "{:.1f}".format(movie_list[movie_id]), # TODO fix score, what is score???
+                "score": "{:.0f}".format((movie_list[movie_id] / total_score) * 100), # TODO fix score, what is score???
                 "tagline": data_movie['tagline'],
                 "title": data_movie['title'],
                 "voteAverage": data_movie['vote_average'],

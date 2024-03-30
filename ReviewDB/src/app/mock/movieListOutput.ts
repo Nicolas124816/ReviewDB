@@ -120,4 +120,29 @@ export const mockMovieList = [
         voteAverageRounded: 4.7,
         voteCount: 27,
     },
+    {
+        budget: 100000,
+        director: 'John Doe',
+        forAdults: false,
+        genre: [
+            'Romance',
+            'Comedy',
+        ],
+        overview: 'A love movie about superheros',
+        posterPath: 'MoviePosterNotFound.jpg',
+        releaseDate: '2013-10-5',
+        releaseYear: '2013',
+        reviews: [
+            'A funny movie about superheros',
+            'A sad movie about superheros'
+        ],
+        runtime: 100,
+        score: 96,
+        tagline: 'Superheros save New York',
+        title: 'Endgame',
+        voteAverage: 4.7,
+        voteAverageRounded: 4.7,
+        voteCount: 27,
+    }
+
 ];

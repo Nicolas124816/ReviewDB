@@ -62,8 +62,13 @@ def prompt_script(json_str:str):
 
     #if es is None:
     es = initialize_elasticsearch_connection()
-
-    res = es.search(index="movie_review", size=8, body={"query": {"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}})
+    index = 0
+    while(index < 4):
+        res = es.search(index="movie_review", size=1, body={"query": {"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}})
+        if es is not None: #if still connected proceed up to 4 as normal
+            index += 1
+        else: #leave if connection fails
+            index = 4 
 
     print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
@@ -111,6 +116,23 @@ def movie_data_script(json_str:str):
                 "genre": [genre['name'] for genre in data_movie['genres']],
                 "overview": data_movie['overview'],
                 "posterPath": "https://image.tmdb.org/t/p/w500/"+data_movie['poster_path'],
+                "releaseDate": data_movie['release_date'],
+                "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
+                "runtime": data_movie['runtime'],
+                "score": random.randint(0, 100), # TODO fix score, what is score???
+                "tagline": data_movie['tagline'],
+                "title": data_movie['title'],
+                "voteAverage": data_movie['vote_average'],
+                "voteCount": data_movie['vote_count']
+            }
+        else:
+            movie_data = {
+                "budget": data_movie['budget'],
+                "director": [p['name'] for p in data_crew['crew'] if p['job'] == 'Director'],
+                "forAdults": data_movie['adult'],
+                "genre": [genre['name'] for genre in data_movie['genres']],
+                "overview": data_movie['overview'],
+                "posterPath": url('/../../../../ReviewDB/picture/MoviePosterNotFound.png'), #may cause error
                 "releaseDate": data_movie['release_date'],
                 "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
                 "runtime": data_movie['runtime'],

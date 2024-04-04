@@ -1,13 +1,17 @@
 name: Run Python files every 24 hours
 
 on:
-  schedule:
-    - cron: '0 21 * * *' # Runs at midnight UTC every day
+  push:
+    branches:
+      - main
 
 jobs:
   run_python_files:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      
       - name: Checkout code
         uses: actions/checkout@v2
 

@@ -3,6 +3,24 @@ from fileinput import filename
 import time
 import requests
 import json
+import sys
+
+def progressbar(it, prefix="", size=60, out=sys.stdout): # Python3.6+
+    count = len(it)
+    start = time.time()
+    def show(j):
+        x = int(size*j/count)
+        remaining = ((time.time() - start) / j) * (count - j)
+        
+        mins, sec = divmod(remaining, 60)
+        time_str = f"{int(mins):02}:{sec:05.2f}"
+        
+        print(f"{prefix}[{u'█'*x}{('.'*(size-x))}] {j}/{count} Est wait {time_str}", end='\r', file=out, flush=True)
+        
+    for i, item in enumerate(it):
+        yield item
+        show(i+1)
+    print("\n", flush=True, file=out)
 
 def get_date():
     today = date.today()
@@ -44,7 +62,7 @@ print("Adding " + str(len(ids_to_add)) + " new movies")
 # Get all the movie ids currently in the review database
 movie_ids = []
 
-filename = 'TMDB_Comments/ReviewDatabase.json'
+filename = 'TMDB_Reviews/ReviewDatabase.json'
 
 with open(filename, 'r', encoding="utf8") as f:
         for line in f:
@@ -57,7 +75,7 @@ with open(filename, 'r', encoding="utf8") as f:
 
 # get the comments for each movie id and write them to the database
 counter = 0
-for id in ids_to_add:
+for id in progressbar(ids_to_add, "Adding new movies: ", 40):
 
     while True:
         try:
@@ -65,7 +83,7 @@ for id in ids_to_add:
             response = requests.get(url, headers=headers)
             break
         except:
-            print("Connection error, retrying in 10 seconds")
+            print("Connection error, retrying in 10 seconds\n")
             time.sleep(10)
             continue
 
@@ -73,9 +91,7 @@ for id in ids_to_add:
         print("Error: " + str(response.status_code))
         continue
     else:
-        if response.json()['total_results'] <= 0:
-            print("No reviews for movie with id " + str(id))
-        else:
+        if response.json()['total_results'] > 0:
             # create json list with author names and their review content
             reviews = []
             for review in response.json()['results']:
@@ -88,16 +104,14 @@ for id in ids_to_add:
                 # Only write to the file if the reviews are different
                 if lines[movie_line] != json.dumps({"movie_id": id, "comments:": reviews}) + '\n':
                     with open(filename, 'w', encoding="utf8") as f:
-                        print(lines[movie_line])
                         lines[movie_line] = json.dumps({"movie_id": id, "comments:": reviews}) + '\n'
                         f.writelines(lines)
 
             else:
                 with open(filename, 'a', encoding="utf8") as f:
-                    print("New movie: " + str(id))
                     f.write(json.dumps({"movie_id": id, "comments:": reviews}) + '\n')
                     f.close()          
 
     counter += 1
-    print(counter)
-    time.sleep(0.01)
+    time.sleep(0.02)
+

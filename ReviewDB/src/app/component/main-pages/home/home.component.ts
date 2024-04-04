@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from '../../../service/movie.service';
 import { MovieDetails } from '../../../model/movie-details';
 import { mockMovieList } from '../../../mock/movieListOutput';
@@ -10,12 +10,15 @@ import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
   movieList: MovieDetails[] = [];
   homeForm: FormGroup = new FormGroup({
     description: new FormControl(''),
     isKidsMovie: new FormControl(false),
     filterGenre: new FormControl('')
   });
+  selectedMovie: any;
+  isPopupVisible: boolean = false;
 
   constructor(private movieService: MovieService, private fb: FormBuilder) {}
 
@@ -54,12 +57,13 @@ export class HomeComponent implements OnInit {
             posterPath: movie.posterPath,
             releaseDate: movie.releaseDate,
             releaseYear: movie.releaseDate.substring(0, 4),
-            reviews: movie.reviews.map((review: any) => review.content),
+            reviews: movie.reviews.map((review: any) => review.content.startsWith("> ") ? review.content.substring(2) : review.content),
             runtime: movie.runtime,
             score: movie.score,
             tagline: movie.tagline,
             title: movie.title,
             voteAverage: movie.voteAverage,
+            voteAverageRounded: parseFloat(movie.voteAverage).toFixed(1),
             voteCount: movie.voteCount,
           };
         });
@@ -68,7 +72,6 @@ export class HomeComponent implements OnInit {
         console.error('Error fetching movie list:', error);
       },
     });
-    // this.mockInformation();
   }
 
   setReleaseYear() {
@@ -79,5 +82,14 @@ export class HomeComponent implements OnInit {
 
   mockInformation() {
     this.movieList = mockMovieList;
+  }
+
+  showMoviePopup(movie: MovieDetails): void {
+    this.selectedMovie = movie;
+    console.log("Popup triggered!");
+  }
+
+  closePopup(): void {
+    this.selectedMovie = null;
   }
 }

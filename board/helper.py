@@ -17,7 +17,8 @@ class AuthorizationSchema(Schema):
     password = fields.String(required=True)
 
 class MovieListSchema(Schema):
-    id_list = fields.List(fields.Integer(), required=True)
+    #id_list = fields.List(fields.Integer(), required=True)
+    id_list = fields.Dict(fields.String(required=True), fields.Float(required=True), required=True)
 
 def authorization_check(json_str:str):
     """ Your Function that Requires JSON string"""
@@ -56,7 +57,7 @@ def update_script():
 def prompt_script(json_str:str, skip_list):
     """ Your Function that Requires JSON string"""
 
-    movie_id_set = set()
+    movie_id_map = dict()
 
     a_dict = loads(json_str)
     prompt = a_dict["prompt"]
@@ -74,13 +75,15 @@ def prompt_script(json_str:str, skip_list):
 
     #print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
+        score = doc["_score"]
         result = doc["_source"]
         movie_id = result["movie_id"]
 
-        movie_id_set.add(movie_id)
+        #movie_id_set.add(movie_id)
+        movie_id_map[movie_id] = score
         
     # convert set to list
-    movie_id_list = {"id_list": list(movie_id_set)}
+    movie_id_list = {"id_list": movie_id_map}
 
     return dumps(movie_id_list)
 
@@ -94,8 +97,15 @@ def movie_data_script(json_str:str):
     result = {"movies": []}
 
     movie_list = a_dict["id_list"]
+
+    # Calculate the total value of score.
+    total_score = 0
     for movie_id in movie_list:
-        
+        score = movie_list[movie_id]
+        total_score += score
+
+    for movie_id in movie_list:
+
         headers = {
             "accept": "application/json",
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxODgzNjM4MWRlN2NkMTg4ZDBlMjRlOThmNDg3NjE4ZCIsInN1YiI6IjY1Yjk2ZGJlMzNhMzc2MDE2Mjg2MzkxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UbB1p6YWO6oAxIHFuq79_u4DVFxYZmX3kO6dWsYN4iM",

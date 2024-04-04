@@ -2,6 +2,8 @@
 .header-container {
   background-color: #333344;
   height: 80px;
+  display:grid;
+  grid-template-columns: 400 400 400 400 400;
 }
 
 /* Title color */
@@ -37,6 +39,13 @@ h1 {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+}
+
+.logo{
+  min-height: 80px;
+  background-image: url('../../../../../../ReviewDB/picture/ReviewDBLogo.png');
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
 }
 
 .dropdown-content a:hover {text-decoration: underline;}

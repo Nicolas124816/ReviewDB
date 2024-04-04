@@ -3,7 +3,6 @@
   background-color: #333344;
   height: 80px;
   display:grid;
-  grid-template-columns: 400 400 400 400 400;
 }
 
 /* Title color */
@@ -43,6 +42,7 @@ h1 {
 
 .logo{
   min-height: 80px;
+  min-width: 80px;
   background-image: url('../../../../../../ReviewDB/picture/ReviewDBLogo.png');
   background-repeat: no-repeat;
   background-size: 80px 80px;

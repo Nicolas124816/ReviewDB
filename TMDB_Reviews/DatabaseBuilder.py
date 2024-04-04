@@ -16,7 +16,7 @@ headers = {
 #get all movie ids from 'TMDB_Comments/movie_ids_' + get_date() + '.json' and store them in a list
 movie_ids = []
 
-filename = 'TMDB_Comments/DailyExport/movie_ids_02_27_2024.json'
+filename = 'TMDB_Reviews/DailyExport/movie_ids_02_27_2024.json'
 
 with open(filename, 'r', encoding="utf8") as f:
     for line in f:
@@ -52,7 +52,7 @@ for id in movie_ids[455940:]:
             for review in response.json()['results']:
                 reviews.append({str(review['author']): review['content']})
 
-            with open('TMDB_Comments/ReviewDatabase.json', 'a') as f:
+            with open('TMDB_Reviews/ReviewDatabase.json', 'a') as f:
                 f.write(json.dumps({"movie_id": id, "comments:": reviews}) + '\n')
                 f.close()
     counter += 1

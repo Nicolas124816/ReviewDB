@@ -33,7 +33,7 @@ with open('movie_ids_' + get_date() + '.json.gz', 'wb') as f:
     f.write(r.content)
 
 #clear the DailyExport folder
-folder = 'TMDB_Comments/DailyExport'
+folder = 'TMDB_Reviews/DailyExport'
 for filename in os.listdir(folder):
     file_path = os.path.join(folder, filename)
     try:
@@ -46,7 +46,7 @@ for filename in os.listdir(folder):
 
 # Unzip the file
 with gzip.open('movie_ids_' + get_date() + '.json.gz', 'rb') as f_in:
-    with open('TMDB_Comments/DailyExport/movie_ids_' + get_date() + '.json', 'wb') as f_out:
+    with open('TMDB_Reviews/DailyExport/movie_ids_' + get_date() + '.json', 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)
 
 # delete the zipped file

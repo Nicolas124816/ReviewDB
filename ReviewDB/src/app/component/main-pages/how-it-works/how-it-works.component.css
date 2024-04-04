@@ -27,6 +27,7 @@ a:link, a:visited {
 .button_array{
   align-items: center;
   display: grid;
+  background-color: #7a7a7a;
 }
 .grid_item{
   margin-left: 27%;

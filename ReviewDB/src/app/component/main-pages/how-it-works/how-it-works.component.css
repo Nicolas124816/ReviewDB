@@ -1,11 +1,37 @@
 .instruction {
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
+
 .details {
     margin-left: 30px;
     margin-right: 30px;
+}
+
+a:link, a:visited {
+  background-color: #7a7a7a;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  a:hover, a:active {
+    background-color: #9f9f9f;
+  }
+
+.button_array{
+  align-items: center;
+  display: grid;
+  background-color: aqua;
+}
+.grid_item{
+  align-self: center;
+  padding: 10px; 
+  grid-column-start: 1;
+  grid-column-end: 5;
 }

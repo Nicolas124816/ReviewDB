@@ -9,7 +9,8 @@ es = None
 
 class PromptSchema(Schema):
     prompt = fields.String(required=True)
-    adult = fields.Boolean(required=True) 
+    kid = fields.Boolean(required=True) 
+    genre = fields.String(required=True)
     
 class AuthorizationSchema(Schema):
     user = fields.String(required=True)
@@ -53,7 +54,7 @@ def update_script():
     return {"Update": "True"}
 
 
-def prompt_script(json_str:str):
+def prompt_script(json_str:str, skip_list):
     """ Your Function that Requires JSON string"""
 
     movie_id_map = dict()
@@ -64,9 +65,15 @@ def prompt_script(json_str:str):
     #if es is None:
     es = initialize_elasticsearch_connection()
 
-    res = es.search(index="movie_review", size=8, body={"query": {"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}})
+    res = es.search(
+        index="movie_review", size=8, 
+        body={"query": {"bool":{
+            "must":{"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}, 
+            "must_not": {"terms": {"movie_id" : skip_list}}
+        }}}
+    )
 
-    print(len(res["hits"]["hits"]))
+    #print(len(res["hits"]["hits"]))
     for doc in res["hits"]["hits"]:
         score = doc["_score"]
         result = doc["_source"]
@@ -81,9 +88,9 @@ def prompt_script(json_str:str):
     return dumps(movie_id_list)
 
 
-def movie_data_script(json_str:str):
+def movie_data_script(json_str:str): 
     """ Your Function that Requires JSON string"""
-    print("Entered movie_data_script")
+    #print("Entered movie_data_script")
 
     a_dict = loads(json_str)
 
@@ -113,24 +120,23 @@ def movie_data_script(json_str:str):
         data_crew = loads(r_crew.content)
         data_review = loads(r_review.content)
         
-        if data_movie['poster_path'] is not None:
-            movie_data = {
-                "budget": data_movie['budget'],
-                "director": [p['name'] for p in data_crew['crew'] if p['job'] == 'Director'],
-                "forAdults": data_movie['adult'],
-                "genre": [genre['name'] for genre in data_movie['genres']],
-                "overview": data_movie['overview'],
-                "posterPath": "https://image.tmdb.org/t/p/w500/"+data_movie['poster_path'],
-                "releaseDate": data_movie['release_date'],
-                "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review['results'][:min(5, len(data_review['results']))]],
-                "runtime": data_movie['runtime'],
-                "score": "{:.0f}".format((movie_list[movie_id] / total_score) * 100), # TODO fix score, what is score???
-                "tagline": data_movie['tagline'],
-                "title": data_movie['title'],
-                "voteAverage": data_movie['vote_average'],
-                "voteCount": data_movie['vote_count']
-            }
+        movie_data = {
+            "budget": data_movie.get('budget', 'unknown'),
+            "director": [p['name'] for p in data_crew.get('crew', []) if p['job'] == 'Director'],
+            "forAdults": not bool([m for m in data_movie.get('genres', []) if "Family"==m["name"]]),
+            "genre": [genre['name'] for genre in data_movie.get('genres', [])],
+            "overview": data_movie.get('overview', 'unkown'),
+            "posterPath": "https://image.tmdb.org/t/p/w500/"+data_movie.get('poster_path', 'https://image.tmdb.org/t/p/original/lRQiJXETkCnVVurHmglNvMXrZOx.jpg'),
+            "releaseDate": data_movie.get('release_date', 'unknown'),
+            "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review.get('results', [])[:min(5, len(data_review.get('results', [])))]],
+            "runtime": data_movie.get('runtime', 'unknown'),
+            "score": random.randint(0, 100), # TODO fix score, what is score???
+            "tagline": data_movie.get('tagline', 'unknown'),
+            "title": data_movie.get('title', 'untitled'),
+            "voteAverage": data_movie.get('vote_average', '0'),
+            "voteCount": data_movie.get('vote_count', '0'),
+        }
 
-            result["movies"].append(movie_data)
+        result["movies"].append(movie_data)
 
     return dumps(result)

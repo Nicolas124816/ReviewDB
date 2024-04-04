@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   movieList: MovieDetails[] = [];
   homeForm: FormGroup = new FormGroup({
     description: new FormControl(''),
-    isKidsMovie: new FormControl(false)
+    isKidsMovie: new FormControl(false),
+    filterGenre: new FormControl('')
   });
   selectedMovie: any;
   isPopupVisible: boolean = false;
@@ -28,15 +29,17 @@ export class HomeComponent implements OnInit {
   initializeForm() {
     this.homeForm = this.fb.group({
       description: ['', Validators.required],
-      isKidsMovie: [false]
+      isKidsMovie: [false],
+      filterGenre: ['']
     });
   }
 
   getMovieList() {
     let prompt = this.homeForm.get('description')?.value;
-    let adult = this.homeForm.get('isKidsMovie')?.value;
+    let kid = this.homeForm.get('isKidsMovie')?.value;
+    let genre = this.homeForm.get('filterGenre')?.value;
 
-    this.movieService.getMovieListFromDescription(prompt, adult).subscribe({
+    this.movieService.getMovieListFromDescription(prompt, kid, genre).subscribe({
       next: (response) => {
         if (response.body === undefined) {
           return;

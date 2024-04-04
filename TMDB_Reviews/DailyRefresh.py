@@ -104,17 +104,14 @@ for id in progressbar(ids_to_add, "Adding new movies: ", 40):
                 # Only write to the file if the reviews are different
                 if lines[movie_line] != json.dumps({"movie_id": id, "comments:": reviews}) + '\n':
                     with open(filename, 'w', encoding="utf8") as f:
-                        #print(lines[movie_line])
                         lines[movie_line] = json.dumps({"movie_id": id, "comments:": reviews}) + '\n'
                         f.writelines(lines)
 
             else:
                 with open(filename, 'a', encoding="utf8") as f:
-                    #print("New movie: " + str(id))
                     f.write(json.dumps({"movie_id": id, "comments:": reviews}) + '\n')
                     f.close()          
 
     counter += 1
-    #print(counter)
     time.sleep(0.02)
 

@@ -8,7 +8,7 @@
             <img class="card-img-top" src={{movie.posterPath}} alt="Movie Poster">
             <div class="card-body">
               <div class="d-flex align-items-center" style="margin-bottom: 5px">
-                <div *ngIf="movie.forAdults" style="margin-bottom: -40px">
+                <div *ngIf="!movie.forAdults" style="margin-bottom: -40px">
                   <app-for-kids-icon></app-for-kids-icon>
                 </div>
                 <app-movie-score-field [score]="movie.score"></app-movie-score-field>

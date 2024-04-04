@@ -27,10 +27,9 @@ a:link, a:visited {
 .button_array{
   align-items: center;
   display: grid;
-  background-color: aqua;
 }
 .grid_item{
-  align-self: center;
+  margin-left: 27%;
   padding: 10px; 
   grid-column-start: 1;
   grid-column-end: 5;

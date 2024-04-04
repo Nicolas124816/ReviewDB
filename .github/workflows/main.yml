@@ -2,7 +2,7 @@ name: Run Python files every 24 hours
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs at midnight UTC every day
+    - cron: '55 8 * * *' # Runs at midnight UTC every day
 
 jobs:
   run_python_files:

@@ -60,6 +60,29 @@ def convert_movie_reviews():
         json_file.write(json.dumps(elasticsearch_data))
 
 
+def convert_daily_movie_reviews():
+    elasticsearch_data = list()
+
+    with open("TMDB_Reviews/ReviewDatabase.json") as file:
+        for row in file:
+            content = json.loads(row)
+            movie_id = content["movie_id"]
+            comments = content["comments:"]
+
+            for author_comment_map in comments:
+                comment_list = list(author_comment_map.values())
+                for comment in comment_list:
+                    doc = dict()
+                    doc["_index"] = "movie_review"
+                    doc["movie_id"] = movie_id
+                    doc["comment"] = comment
+
+                    elasticsearch_data.append(doc)
+
+    with open("TMDB_Reviews/ReviewDatabase_Elasticsearch.json", mode="w") as json_file:
+        json_file.write(json.dumps(elasticsearch_data))
+
+
 def list_file_names():
     file_names = os.listdir("TMDB Reviews Datasets/raw data")
     for file_name in file_names:
@@ -70,9 +93,11 @@ def list_file_names():
 if __name__ == '__main__':
     # list_file_names()
 
-    convert_movie_info()
+    #convert_movie_info()
 
-    convert_movie_reviews()
+    #convert_movie_reviews()
+
+    convert_daily_movie_reviews()
 
 
 

@@ -10,12 +10,12 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  getMovieListFromDescription(prompt: string, kid: string, genre: string): Observable<any> {
+  getMovieListFromDescription(prompt: string, rowsOfMovies: number, kid: string, genre: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'text/plain'
     });
-    const requestData = { prompt, kid, genre };
+    const requestData = { prompt, rowsOfMovies, kid, genre };
     let req = new HttpRequest<any>(
       'POST',
       this.apiUrlBase + `/prompt/test/`,

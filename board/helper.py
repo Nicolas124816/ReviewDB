@@ -11,6 +11,7 @@ class PromptSchema(Schema):
     prompt = fields.String(required=True)
     kid = fields.Boolean(required=True) 
     genre = fields.String(required=True)
+    rowsOfMovies = fields.Integer(required=True)
     
 class AuthorizationSchema(Schema):
     user = fields.String(required=True)
@@ -66,7 +67,7 @@ def prompt_script(json_str:str, skip_list):
     es = initialize_elasticsearch_connection()
 
     res = es.search(
-        index="movie_review", size=8, 
+        index="movie_review", size=4, 
         body={"query": {"bool":{
             "must":{"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}, 
             "must_not": {"terms": {"movie_id" : skip_list}}

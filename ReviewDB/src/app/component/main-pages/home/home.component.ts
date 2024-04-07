@@ -10,7 +10,6 @@ import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
   movieList: MovieDetails[] = [];
   homeForm: FormGroup = new FormGroup({
     description: new FormControl(''),
@@ -19,6 +18,7 @@ export class HomeComponent implements OnInit {
   });
   selectedMovie: any;
   isPopupVisible: boolean = false;
+  rowsOfMovies: number = 0;
 
   constructor(private movieService: MovieService, private fb: FormBuilder) {}
 
@@ -36,10 +36,11 @@ export class HomeComponent implements OnInit {
 
   getMovieList() {
     let prompt = this.homeForm.get('description')?.value;
-    let kid = this.homeForm.get('isKidsMovie')?.value;
+    let kids = this.homeForm.get('isKidsMovie')?.value;
     let genre = this.homeForm.get('filterGenre')?.value;
+    this.rowsOfMovies += 1;
 
-    this.movieService.getMovieListFromDescription(prompt, kid, genre).subscribe({
+    this.movieService.getMovieListFromDescription(prompt, this.rowsOfMovies, kids, genre).subscribe({
       next: (response) => {
         if (response.body === undefined) {
           return;
@@ -74,6 +75,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  showMoreMovies() {
+
+  }
+
   setReleaseYear() {
     this.movieList.forEach(movie => {
       movie.releaseYear = movie.releaseDate.split('-')[0];
@@ -86,7 +91,6 @@ export class HomeComponent implements OnInit {
 
   showMoviePopup(movie: MovieDetails): void {
     this.selectedMovie = movie;
-    console.log("Popup triggered!");
   }
 
   closePopup(): void {

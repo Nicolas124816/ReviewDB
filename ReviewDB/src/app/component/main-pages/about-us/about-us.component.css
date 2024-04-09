@@ -25,6 +25,7 @@
 .card {
     max-width: 100%;
     margin-right: 10px;
+    background-color: #f3ce13;
 
     opacity: 0; /* Initially hide all cards */
     animation: fadeInAnimation ease-in-out 0.5s forwards; /* Apply fadeIn animation */

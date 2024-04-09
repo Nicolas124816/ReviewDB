@@ -30,3 +30,11 @@ jobs:
 
       - name: Run second Python file
         run: python TMDB_Reviews/DailyRefresh.py
+
+      - name: Commit and push files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Run Python scripts and update results"
+          git push origin main

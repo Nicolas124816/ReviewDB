@@ -62,3 +62,43 @@
     margin-bottom: 20px;
     animation: slideInAnimationRight 2s ease forwards;
 }
+
+.image-trello {
+    width: 256px;
+    height: 73px;
+    float: right;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 12px;
+    background-image: url('../../../../../picture/Trello_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.image-slide {
+    width: 300px;
+    height: 168px;
+    float: left;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 12px;
+    background-image: url('../../../../../picture/slide_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.image-discord {
+    width: 300px;
+    height: 56px;
+    float: right;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 22px;
+    background-image: url('../../../../../picture/discord_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card {
+    background-color: bisque;
+}

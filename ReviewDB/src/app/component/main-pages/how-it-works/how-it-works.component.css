@@ -28,10 +28,5 @@ a:link, a:visited {
   align-items: center;
   display: grid;
   background-color: #7a7a7a;
-}
-.grid_item{
-  margin-left: 27%;
-  padding: 10px; 
-  grid-column-start: 1;
-  grid-column-end: 5;
+  
 }

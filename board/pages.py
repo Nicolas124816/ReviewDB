@@ -81,24 +81,25 @@ def promptTest():
     json_prompt = dumps(result_prompt)
     kid_filter = result_prompt["kid"]
     genre_filter = result_prompt["genre"]
+    rows_of_movies = result_prompt["rowsOfMovies"]
 
-    response, code = filterLoop(json_prompt, kid_filter, genre_filter)
+    response, code = filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies)
 
     return response, code
 
-def filterLoop(json_prompt, kid_filter, genre_filter):
+def filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies):
     skip_list = []
     
     if kid_filter and bool(genre_filter):
         filter_movies = []
         print("Filter Movies")
-        while len(filter_movies) < 8:
+        while len(filter_movies) < 4:
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
 
             for m in temp_movies["movies"]:
-                if len(filter_movies) >= 8:
+                if len(filter_movies) >= 4:
                     break
                 if not m["forAdults"] and genre_filter in m["genre"]:
                     print(m["title"])
@@ -113,13 +114,13 @@ def filterLoop(json_prompt, kid_filter, genre_filter):
     elif kid_filter:
         filter_movies = []
         print("Filter Movies")
-        while len(filter_movies) < 8:
+        while len(filter_movies) < 4:
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
            
             for m in temp_movies["movies"]:
-                if len(filter_movies) >= 8:
+                if len(filter_movies) >= 4:
                     break
                 if not m["forAdults"]: 
                     print(m["title"])
@@ -134,13 +135,13 @@ def filterLoop(json_prompt, kid_filter, genre_filter):
     elif bool(genre_filter):
         filter_movies = []
         print("Filter Movies")
-        while len(filter_movies) < 8:
+        while len(filter_movies) < 4:
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
             
             for m in temp_movies["movies"]:
-                if len(filter_movies) >= 8:
+                if len(filter_movies) >= 4:
                     break
                 if genre_filter in m["genre"]: 
                     print(m["title"])
@@ -165,7 +166,7 @@ def final_script(json_prompt, skip_list):
     try:
         result_data = schema_data.loads(response_prompt) # TODO test, if fails change loads to load
     except ValidationError as err:
-        return jsonify(err.messages), 400
+        return None, jsonify(err.messages), 400
     
     json_data = dumps(result_data)
 

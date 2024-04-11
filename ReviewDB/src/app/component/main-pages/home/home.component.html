@@ -9,7 +9,7 @@
       </p>
     </div>
     <div class="content">
-      <form [formGroup]="homeForm" (submit)="getMovieList()" class="d-flex flex-column align-items-center">
+      <form [formGroup]="homeForm" (submit)="getFirstRow()" class="d-flex flex-column align-items-center">
         <div class="form-group bottom-margin">
           <label for="descriptionInput">Movie Description</label>
           <input 
@@ -71,7 +71,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="getMovieList()">Show More</button>
+    <button *ngIf="movieList.length > 0 && canShow" class="btn btn-primary" (click)="getAnotherRow()">Show More</button>
   </div>
 </div>
 

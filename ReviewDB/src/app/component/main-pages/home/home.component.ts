@@ -26,12 +26,26 @@ export class HomeComponent implements OnInit {
     this.initializeForm();
   }
 
+  get canShow(): boolean {
+    return !(this.rowsOfMovies == 1 && (this.homeForm.get('isKidsMovie')?.value || this.homeForm.get('filterGenre')?.value));
+  }
+
   initializeForm() {
     this.homeForm = this.fb.group({
       description: ['', Validators.required],
       isKidsMovie: [false],
       filterGenre: ['']
     });
+  }
+
+  getFirstRow() {
+    this.movieList = [];
+    this.rowsOfMovies = 0;
+    this.getMovieList();
+  }
+
+  getAnotherRow() {
+    this.getMovieList();
   }
 
   getMovieList() {
@@ -48,7 +62,7 @@ export class HomeComponent implements OnInit {
         const movieData = JSON.parse(response.body)
         console.log(movieData.movies);
 
-        this.movieList = movieData.movies.map((movie: any) => {
+        let newMovieList = movieData.movies.map((movie: any) => {
           return {
             budget: movie.budget,
             director: movie.director[0],
@@ -68,15 +82,15 @@ export class HomeComponent implements OnInit {
             voteCount: movie.voteCount,
           };
         });
+
+        newMovieList.forEach((movie: MovieDetails) => {
+          this.movieList.push(movie);
+        })
       },
       error: (error) => {
         console.error('Error fetching movie list:', error);
       },
     });
-  }
-
-  showMoreMovies() {
-
   }
 
   setReleaseYear() {

@@ -20,6 +20,7 @@ class AuthorizationSchema(Schema):
 class MovieListSchema(Schema):
     #id_list = fields.List(fields.Integer(), required=True)
     id_list = fields.Dict(fields.String(required=True), fields.Float(required=True), required=True)
+    rows_movies = fields.Integer(required=True)
 
 def authorization_check(json_str:str):
     """ Your Function that Requires JSON string"""
@@ -62,29 +63,34 @@ def prompt_script(json_str:str, skip_list):
 
     a_dict = loads(json_str)
     prompt = a_dict["prompt"]
+    rows_of_movies = a_dict["rowsOfMovies"]
 
     #if es is None:
     es = initialize_elasticsearch_connection()
+    size = 4 * rows_of_movies
 
     res = es.search(
-        index="movie_review", size=4, 
+        index="movie_review", size=size, 
         body={"query": {"bool":{
             "must":{"match": {"comment": {"query": prompt, "fuzziness": "AUTO"}}}, 
             "must_not": {"terms": {"movie_id" : skip_list}}
         }}}
     )
 
-    #print(len(res["hits"]["hits"]))
+    index = 0
     for doc in res["hits"]["hits"]:
-        score = doc["_score"]
-        result = doc["_source"]
-        movie_id = result["movie_id"]
+        if index >= size - 4:
+            score = doc["_score"]
+            result = doc["_source"]
+            movie_id = result["movie_id"]
 
-        #movie_id_set.add(movie_id)
-        movie_id_map[movie_id] = score
+            #movie_id_set.add(movie_id)
+            movie_id_map[movie_id] = score
+        index += 1
         
     # convert set to list
-    movie_id_list = {"id_list": movie_id_map}
+    movie_id_list = {"id_list": movie_id_map, "rows_movies": rows_of_movies}
+    
 
     return dumps(movie_id_list)
 
@@ -99,11 +105,12 @@ def movie_data_script(json_str:str):
 
     movie_list = a_dict["id_list"]
 
-    # Calculate the total value of score.
-    total_score = 0
+    # Calculate the max value of score.
+    max_score = 0
     for movie_id in movie_list:
         score = movie_list[movie_id]
-        total_score += score
+        if score > max_score:
+            max_score = score
 
     for movie_id in movie_list:
 
@@ -131,7 +138,7 @@ def movie_data_script(json_str:str):
             "releaseDate": data_movie.get('release_date', 'unknown'),
             "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review.get('results', [])[:min(5, len(data_review.get('results', [])))]],
             "runtime": data_movie.get('runtime', 'unknown'),
-            "score": random.randint(0, 100), # TODO fix score, what is score???
+            "score": "{:.0f}".format((movie_list[movie_id] / max_score) * 100),
             "tagline": data_movie.get('tagline', 'unknown'),
             "title": data_movie.get('title', 'untitled'),
             "voteAverage": data_movie.get('vote_average', '0'),

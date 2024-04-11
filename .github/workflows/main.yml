@@ -32,9 +32,11 @@ jobs:
         run: python TMDB_Reviews/DailyRefresh.py
 
       - name: Commit and push files
+        env:
+          PAT: ${{ secrets.GITHUB_PAT }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "Run Python scripts and update results"
-          git push origin main
+          git push --force-with-lease "https://github.com/Nicolas124816/ReviewDB.git" HEAD:main

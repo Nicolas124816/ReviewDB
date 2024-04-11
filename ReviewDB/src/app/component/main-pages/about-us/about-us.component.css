@@ -25,6 +25,23 @@
 .card {
     max-width: 100%;
     margin-right: 10px;
+    background-color: #f3ce13;
+
+    opacity: 0; /* Initially hide all cards */
+    animation: fadeInAnimation ease-in-out 0.5s forwards; /* Apply fadeIn animation */
+}
+
+.col-sm:nth-child(1) .card { animation-delay: 1.2s; }
+.col-sm:nth-child(2) .card { animation-delay: 1.4s; }
+.col-sm:nth-child(3) .card { animation-delay: 1.6s; }
+.col-sm:nth-child(4) .card { animation-delay: 1.8s; }
+.col-sm:nth-child(5) .card { animation-delay: 2.0s; }
+.col-sm:nth-child(6) .card { animation-delay: 2.2s; }
+
+.card-body {
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .image-container-Kevyn {

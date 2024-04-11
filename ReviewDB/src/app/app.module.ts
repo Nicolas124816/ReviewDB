@@ -11,10 +11,12 @@ import { HeaderModule } from './component/main-fragments/header/header.module';
 import { HomeModule } from './component/main-pages/home/home.module';
 import { HowItWorksModule } from './component/main-pages/how-it-works/how-it-works.module';
 import { AppComponent } from './app.component';
+import { CaseIconComponent } from './component/field-components/icons/case-icon/case-icon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CaseIconComponent,
   ],
   imports: [
     BrowserModule,

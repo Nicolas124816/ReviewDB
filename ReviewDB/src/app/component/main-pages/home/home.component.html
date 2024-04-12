@@ -69,7 +69,7 @@
   <div class="container" >
     <div class="row">
       <div *ngFor="let movie of movieList" class="col-md-3 mb-4" (click)="showMoviePopup(movie)">
-        <div class="card movie-card">
+        <div class="card movie-card" style="width: 20rem; height: 40rem;">
           <img class="card-img-top" [src]="movie.posterPath" alt="Movie Poster">
           <div class="card-body">
             <div class="d-flex align-items-center" style="margin-bottom: 5px">
@@ -90,7 +90,7 @@
   </div>
 </div>
 
-  <app-movie-information-popup *ngIf="selectedMovie" [movie]="selectedMovie" (close)="closePopup()"></app-movie-information-popup>
+<app-movie-information-popup *ngIf="selectedMovie" [movie]="selectedMovie" (close)="closePopup()"></app-movie-information-popup>
 
 
 

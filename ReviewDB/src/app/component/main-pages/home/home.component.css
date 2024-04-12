@@ -15,6 +15,7 @@
   height: 100vh; /* Ensure the container takes up the full height of the viewport */
   margin: 0; /* Remove default margin */
   padding: 0; /* Remove default padding */
+  background-color: #260414;
 }
 
 .content {

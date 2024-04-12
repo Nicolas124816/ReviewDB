@@ -27,13 +27,27 @@
         
         <div class="form-group bottom-margin">
           <label for="descriptionInput">Genre</label>
-          <input 
-            type="string" 
-            formControlName="filterGenre" 
-            class="form-control description-input" 
-            id="filterGenre"  
-            placeholder="Example Genre: Comedy"
-          >
+          <select class = "selectpicker form-control" formControlName="filterGenre" id="filterGenre" name="filterGenre">
+            <option value=""></option>
+            <option value="Action">Action</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Animation">Animation</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Crime">Crime</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Drama">Drama</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="History">History</option>
+            <option value="Horror">Horror</option>
+            <option value="Music">Music</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Romance">Romance</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="TV Movie">TV Movie</option>
+            <option value="Thriller">Thriller</option>
+            <option value="War">War</option>
+            <option value="Western">Western</option>
+          </select>
         </div>
 
         <div class="form-check bottom-margin">
@@ -48,25 +62,27 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+  </div>
+</div>
 
-    <div class="container">
-      <div class="row">
-        <div *ngFor="let movie of movieList" class="col-md-3 mb-4" (click)="showMoviePopup(movie)">
-          <div class="card movie-card">
-            <img class="card-img-top" [src]="movie.posterPath" alt="Movie Poster">
-            <div class="card-body">
-              <div class="d-flex align-items-center" style="margin-bottom: 5px">
-                <app-movie-score-field [score]="movie.score"></app-movie-score-field>
-                <div style="margin-left: 10px; margin-bottom: -40px;" title="The rating for the movie!">
-                  <app-star-icon></app-star-icon>
-                  <p style="display: inline-block; margin-left: 5px;">{{ movie.voteAverageRounded }}/10</p>
-                </div>
-                <div *ngIf="!movie.forAdults" style="margin-bottom: -40px">
-                  <app-for-kids-icon></app-for-kids-icon>
-                </div>
+<div style="background-color:rgb(34, 0, 35); background-size: 100% 100%;">
+  <div class="container" >
+    <div class="row">
+      <div *ngFor="let movie of movieList" class="col-md-3 mb-4" (click)="showMoviePopup(movie)">
+        <div class="card movie-card">
+          <img class="card-img-top" [src]="movie.posterPath" alt="Movie Poster">
+          <div class="card-body">
+            <div class="d-flex align-items-center" style="margin-bottom: 5px">
+              <app-movie-score-field [score]="movie.score"></app-movie-score-field>
+              <div style="margin-left: 10px; margin-bottom: -40px;" title="The rating for the movie!">
+                <app-star-icon></app-star-icon>
+                <p style="display: inline-block; margin-left: 5px;">{{ movie.voteAverageRounded }}/10</p>
               </div>
-              <h5 class="card-title">{{ movie.title }} ({{ movie.releaseYear }})</h5>
+              <div *ngIf="!movie.forAdults" style="margin-bottom: -40px">
+                <app-for-kids-icon></app-for-kids-icon>
+              </div>
             </div>
+            <h5 class="card-title">{{ movie.title }} ({{ movie.releaseYear }})</h5>
           </div>
         </div>
       </div>
@@ -74,4 +90,9 @@
   </div>
 </div>
 
-<app-movie-information-popup *ngIf="selectedMovie" [movie]="selectedMovie" (close)="closePopup()"></app-movie-information-popup>
+  <app-movie-information-popup *ngIf="selectedMovie" [movie]="selectedMovie" (close)="closePopup()"></app-movie-information-popup>
+
+
+
+
+

@@ -93,7 +93,7 @@ def filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies):
     if kid_filter and bool(genre_filter):
         filter_movies = []
         print("Filter Movies")
-        while len(filter_movies) < 4:
+        for i in range(5):
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
@@ -107,6 +107,8 @@ def filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies):
                     filter_movies.append(m)
             
             skip_list += temp_id["id_list"]
+            if len(filter_movies) >= 4:
+                    break
 
         response_data = dumps({"movies": filter_movies})
         code = 200
@@ -114,7 +116,7 @@ def filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies):
     elif kid_filter:
         filter_movies = []
         print("Filter Movies")
-        while len(filter_movies) < 4:
+        for i in range(5):
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
@@ -128,14 +130,16 @@ def filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies):
                     filter_movies.append(m)
                     
             skip_list += temp_id["id_list"]
-
+            if len(filter_movies) >= 4:
+                    break
+                
         response_data = dumps({"movies": filter_movies})
         code = 200
    
     elif bool(genre_filter):
         filter_movies = []
         print("Filter Movies")
-        while len(filter_movies) < 4:
+        for i in range(5):
             temp_response_prompt,temp_response_data, _ = final_script(json_prompt, skip_list)
             temp_movies = loads(temp_response_data)
             temp_id = loads(temp_response_prompt)
@@ -149,6 +153,8 @@ def filterLoop(json_prompt, kid_filter, genre_filter, rows_of_movies):
                     filter_movies.append(m)
             
             skip_list += temp_id["id_list"]
+            if len(filter_movies) >= 4:
+                    break
 
         response_data = dumps({"movies": filter_movies})
         code = 200

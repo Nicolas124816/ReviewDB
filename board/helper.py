@@ -105,13 +105,6 @@ def movie_data_script(json_str:str):
 
     movie_list = a_dict["id_list"]
 
-    # # Calculate the max value of score.
-    # max_score = 0
-    # for movie_id in movie_list:
-    #     score = movie_list[movie_id]
-    #     if score > max_score:
-    #         max_score = score
-
     for movie_id in movie_list:
 
         headers = {

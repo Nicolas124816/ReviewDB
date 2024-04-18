@@ -121,12 +121,15 @@ def movie_data_script(json_str:str):
         url_movie = f"https://api.themoviedb.org/3/movie/{movie_id}"
         url_crew = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?language=en-US"
         url_review = f"https://api.themoviedb.org/3/movie/{movie_id}/reviews?language=en-US"
+        url_providers = f"https://api.themoviedb.org/3/movie/{movie_id}/watch/providers?language=en-US"
         r_movie = requests.get(url_movie, headers=headers)
         r_crew = requests.get(url_crew, headers=headers)
         r_review = requests.get(url_review, headers=headers)
+        r_providers = requests.get(url_providers, headers=headers)
         data_movie = loads(r_movie.content)
         data_crew = loads(r_crew.content)
         data_review = loads(r_review.content)
+        data_providers = loads(r_providers.content)
         
         movie_data = {
             "budget": data_movie.get('budget', 'unknown'),
@@ -143,6 +146,7 @@ def movie_data_script(json_str:str):
             "title": data_movie.get('title', 'untitled'),
             "voteAverage": data_movie.get('vote_average', '0'),
             "voteCount": data_movie.get('vote_count', '0'),
+            "watchProviders": [provider['provider_name'] for provider in data_providers.get('results', {}).get('US', {}).get('flatrate', [])]
         }
 
         result["movies"].append(movie_data)

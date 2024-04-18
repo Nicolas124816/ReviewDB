@@ -21,6 +21,12 @@
                 <p>Budget: ${{ movie?.budget | number:'1.0-0' }}</p>
                 <hr>
             </div>
+            <div *ngIf="movie?.watchProviders">
+                <p>Watch on:</p>
+                <div *ngFor="let provider of movie?.watchProviders">
+                    <p>{{ provider.providerName }}</p>
+                </div>
+                <hr>
             <div *ngIf="movie?.voteAverageRounded && movie?.voteCount">
                 <div style="margin-bottom: -10px">
                     <app-star-icon></app-star-icon>

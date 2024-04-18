@@ -105,13 +105,6 @@ def movie_data_script(json_str:str):
 
     movie_list = a_dict["id_list"]
 
-    # Calculate the max value of score.
-    max_score = 0
-    for movie_id in movie_list:
-        score = movie_list[movie_id]
-        if score > max_score:
-            max_score = score
-
     for movie_id in movie_list:
 
         headers = {
@@ -138,7 +131,7 @@ def movie_data_script(json_str:str):
             "releaseDate": data_movie.get('release_date', 'unknown'),
             "reviews": [{'author': r['author'], 'content': r['content']} for r in data_review.get('results', [])[:min(5, len(data_review.get('results', [])))]],
             "runtime": data_movie.get('runtime', 'unknown'),
-            "score": "{:.0f}".format((movie_list[movie_id] / max_score) * 100),
+            "score": "{:.4f}".format(movie_list[movie_id]),
             "tagline": data_movie.get('tagline', 'unknown'),
             "title": data_movie.get('title', 'untitled'),
             "voteAverage": data_movie.get('vote_average', '0'),

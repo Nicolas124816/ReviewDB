@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   selectedMovie: any;
   isPopupVisible: boolean = false;
   rowsOfMovies: number = 0;
+  maxScore = 0;
 
   constructor(private movieService: MovieService, private fb: FormBuilder) {}
 
@@ -63,6 +64,7 @@ export class HomeComponent implements OnInit {
         console.log(movieData.movies);
 
         let newMovieList = movieData.movies.map((movie: any) => {
+          if (movie.score > this.maxScore) this.maxScore = movie.score;
           return {
             budget: movie.budget,
             director: movie.director[0],
@@ -74,7 +76,7 @@ export class HomeComponent implements OnInit {
             releaseYear: movie.releaseDate.substring(0, 4),
             reviews: movie.reviews.map((review: any) => review.content.startsWith("> ") ? review.content.substring(2) : review.content),
             runtime: movie.runtime,
-            score: movie.score,
+            score: Math.round((movie.score / this.maxScore) * 100),
             tagline: movie.tagline,
             title: movie.title,
             voteAverage: movie.voteAverage,

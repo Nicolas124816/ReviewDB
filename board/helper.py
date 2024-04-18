@@ -146,7 +146,7 @@ def movie_data_script(json_str:str):
             "title": data_movie.get('title', 'untitled'),
             "voteAverage": data_movie.get('vote_average', '0'),
             "voteCount": data_movie.get('vote_count', '0'),
-            "watchProviders": [provider['provider_name'] for provider in data_providers.get('results', {}).get('US', {}).get('flatrate', [])]
+            "watchProviders": [str(provider['provider_name']) for provider in data_providers.get('results', {}).get('US', {}).get('flatrate', [])]
         }
 
         result["movies"].append(movie_data)

@@ -22,7 +22,8 @@ export const mockMovieList = [
         title: 'Infinity War',
         voteAverage: 4.7,
         voteAverageRounded: 4.7,
-        voteCount: 27
+        voteCount: 27,
+        watchProviders: ['']
     },
     {
         budget: 100000,
@@ -47,6 +48,7 @@ export const mockMovieList = [
         voteAverage: 4.7,
         voteAverageRounded: 4.7,
         voteCount: 27,
+        watchProviders: ['']
     },
     {
         budget: 100000,
@@ -71,6 +73,7 @@ export const mockMovieList = [
         voteAverage: 4.7,
         voteAverageRounded: 4.7,
         voteCount: 27,
+        watchProviders: ['']
     },
     {
         budget: 100000,
@@ -95,6 +98,7 @@ export const mockMovieList = [
         voteAverage: 4.7,
         voteAverageRounded: 4.7,
         voteCount: 27,
+        watchProviders: ['']
     },
     {
         budget: 100000,
@@ -119,5 +123,6 @@ export const mockMovieList = [
         voteAverage: 4.7,
         voteAverageRounded: 4.7,
         voteCount: 27,
+        watchProviders: ['']
     },
 ];

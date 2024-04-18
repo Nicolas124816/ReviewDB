@@ -21,6 +21,14 @@
                 <p>Budget: ${{ movie?.budget | number:'1.0-0' }}</p>
                 <hr>
             </div>
+            <div *ngIf="movie?.watchProviders">
+                <p style="display: inline;">Watch on: </p>
+                <span style="display: inline;" *ngFor="let provider of movie?.watchProviders; let last = last">
+                    {{ provider }}
+                    <ng-container *ngIf="!last">&nbsp;&middot;&nbsp;</ng-container>
+                </span>
+                <hr>
+            </div>
             <div *ngIf="movie?.voteAverageRounded && movie?.voteCount">
                 <div style="margin-bottom: -10px">
                     <app-star-icon></app-star-icon>

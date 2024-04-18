@@ -16,4 +16,9 @@ export interface MovieDetails {
   voteAverage: number;
   voteAverageRounded: number;
   voteCount: number;
+  watchProviders: string[];
+}
+
+export interface Prodiver {
+  providerName: string;
 }

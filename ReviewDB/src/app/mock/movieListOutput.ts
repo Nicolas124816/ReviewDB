@@ -23,6 +23,7 @@ export const mockMovieList = [
         voteAverage: 5.0,
         voteAverageRounded: 4.7,
         voteCount: 1,
+        watchProviders: ['']
     },
     {
         budget: 85000000,
@@ -50,6 +51,7 @@ export const mockMovieList = [
         voteAverage: 5.0,
         voteAverageRounded: 5.0,
         voteCount: 1,
+        watchProviders: ['']
     },
     {
         budget: 125000000,
@@ -75,6 +77,7 @@ export const mockMovieList = [
         voteAverage: 5.0,
         voteAverageRounded: 5.0,
         voteCount: 1,
+        watchProviders: ['']
     },
     {
         budget: 165000000,
@@ -100,5 +103,6 @@ export const mockMovieList = [
         voteAverage: 5.0,
         voteAverageRounded: 5.0,
         voteCount: 1,
+        watchProviders: ['']
     },
 ];

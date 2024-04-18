@@ -82,6 +82,7 @@ export class HomeComponent implements OnInit {
             voteAverage: movie.voteAverage,
             voteAverageRounded: parseFloat(movie.voteAverage).toFixed(1),
             voteCount: movie.voteCount,
+            watchProviders: movie.watchProviders,
           };
         });
 

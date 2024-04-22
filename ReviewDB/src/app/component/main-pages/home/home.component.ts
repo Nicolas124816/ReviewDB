@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   getFirstRow() {
     this.movieList = [];
     this.rowsOfMovies = 0;
+    this.maxScore = 0;
     this.getMovieList();
   }
 
